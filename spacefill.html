@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spacefill — Momoko Sakamoto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f0f0d; --ink-muted: #6b6b60; --ink-faint: #b8b8ad;
+      --paper: #f7f6f2; --paper-warm: #eeecea; --accent: #c8451a;
+      --accent-light: #f5ede9; --border: #e2e0da;
+      --serif: 'Instrument Serif', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --max: 720px; --nav-h: 64px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--paper); color: var(--ink); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h); display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; background: rgba(247,246,242,0.88); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: var(--serif); font-size: 18px; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+    .nav-back { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-muted); text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--ink); }
+    .nav-back svg { transition: transform 0.2s; }
+    .nav-back:hover svg { transform: translateX(-3px); }
+
+    .hero {
+      max-width: var(--max); margin: 0 auto;
+      padding: calc(var(--nav-h) + 80px) 40px 64px;
+    }
+    .hero-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    .hero-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--ink-faint); }
+    .hero h1 { font-family: var(--serif); font-size: clamp(36px, 6vw, 64px); line-height: 1.05; letter-spacing: -0.02em; font-weight: 400; margin-bottom: 24px; }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero-desc { font-size: 16px; color: var(--ink-muted); line-height: 1.75; max-width: 560px; margin-bottom: 40px; }
+
+    .meta-row {
+      display: flex; flex-wrap: wrap; gap: 0;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      margin-bottom: 80px;
+    }
+    .meta-item { padding: 16px 24px 16px 0; margin-right: 24px; border-right: 1px solid var(--border); }
+    .meta-item:last-child { border-right: none; }
+    .meta-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 4px; }
+    .meta-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+    .content { max-width: var(--max); margin: 0 auto; padding: 0 40px 120px; }
+
+    h2 { font-family: var(--serif); font-size: clamp(24px, 3vw, 34px); font-weight: 400; letter-spacing: -0.015em; line-height: 1.15; margin: 64px 0 20px; color: var(--ink); }
+    h2:first-child { margin-top: 0; }
+    h3 { font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); margin: 40px 0 12px; }
+    p { font-size: 15px; color: var(--ink-muted); line-height: 1.85; margin-bottom: 16px; }
+    p strong { color: var(--ink); font-weight: 500; }
+
+    blockquote {
+      border-left: 2px solid var(--accent); margin: 32px 0;
+      padding: 4px 0 4px 20px;
+    }
+    blockquote p { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--ink); margin: 0 0 6px; }
+    blockquote cite { font-size: 12px; color: var(--ink-faint); letter-spacing: 0.06em; text-transform: uppercase; }
+
+    .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 32px; }
+    .pill { font-size: 12px; color: var(--ink-muted); background: var(--paper-warm); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; }
+    .pill.accent { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
+
+    .feature-block {
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 28px 32px; margin: 24px 0;
+      background: var(--paper-warm);
+    }
+    .feature-block h3 { margin-top: 0; }
+    .feature-block ul { padding-left: 16px; margin-top: 8px; }
+    .feature-block li { font-size: 14px; color: var(--ink-muted); line-height: 1.7; margin-bottom: 4px; }
+    .feature-block li strong { color: var(--ink); }
+
+    .impact-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin: 32px 0; }
+    .impact-item { background: var(--paper); padding: 24px 20px; }
+    .impact-num { font-family: var(--serif); font-style: italic; font-size: 32px; color: var(--accent); line-height: 1; margin-bottom: 6px; }
+    .impact-label { font-size: 12px; color: var(--ink-muted); line-height: 1.4; }
+
+    .section-divider { border: none; border-top: 1px solid var(--border); margin: 64px 0; }
+
+    .process-steps { counter-reset: step; margin: 24px 0; }
+    .process-step { display: flex; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+    .process-step:first-child { border-top: 1px solid var(--border); }
+    .step-num { font-family: var(--serif); font-style: italic; font-size: 13px; color: var(--ink-faint); width: 24px; flex-shrink: 0; padding-top: 2px; }
+    .step-content strong { font-size: 14px; font-weight: 500; color: var(--ink); display: block; margin-bottom: 2px; }
+    .step-content span { font-size: 13px; color: var(--ink-muted); }
+
+    .takeaway { padding: 20px 0; border-bottom: 1px solid var(--border); }
+    .takeaway:first-child { border-top: 1px solid var(--border); }
+    .takeaway strong { font-size: 14px; font-weight: 500; color: var(--ink); display: block; margin-bottom: 4px; }
+    .takeaway p { font-size: 13px; color: var(--ink-muted); margin: 0; line-height: 1.6; }
+
+    .nav-case { display: flex; justify-content: space-between; align-items: center; margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--border); }
+    .nav-case a { display: flex; align-items: center; gap: 10px; text-decoration: none; font-size: 13px; color: var(--ink-muted); letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-case a:hover { color: var(--ink); }
+    .nav-case .next { text-align: right; }
+
+    @media (max-width: 700px) {
+      nav { padding: 0 20px; }
+      .hero, .content { padding-left: 20px; padding-right: 20px; }
+      .meta-row { gap: 0; }
+      .meta-item { padding: 12px 16px 12px 0; margin-right: 16px; }
+      .impact-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Momoko Sakamoto</a>
+  <a href="index.html" class="nav-back">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    All work
+  </a>
+</nav>
+
+<div class="hero">
+  <p class="hero-label">Case study — 01</p>
+  <h1>Redesigning a B2B SaaS<br>logistics platform <em>from within.</em></h1>
+  <p class="hero-desc">As the sole product designer at Spacefill, I redesigned three core product areas — inventory, order workflow, and transportation — to support a pivot from marketplace to full SaaS operations platform.</p>
+  <div class="meta-row">
+    <div class="meta-item"><div class="meta-label">Company</div><div class="meta-value">Spacefill</div></div>
+    <div class="meta-item"><div class="meta-label">Role</div><div class="meta-value">Solo Product Designer</div></div>
+    <div class="meta-item"><div class="meta-label">Period</div><div class="meta-value">2022 – 2024</div></div>
+    <div class="meta-item"><div class="meta-label">Type</div><div class="meta-value">B2B SaaS · Logistics</div></div>
+  </div>
+</div>
+
+<div class="content">
+
+  <h2>Business context</h2>
+  <p>Spacefill was at an inflection point — transitioning from a marketplace model to a <strong>100% SaaS subscription product</strong> targeting SMBs. Three objectives defined the work: increase paid accounts, reach shippers and LSPs at scale, and build a product worth paying for.</p>
+  <p>The platform was built around three strategic pillars:</p>
+  <div class="pill-row">
+    <span class="pill accent">🗂 Inventory visibility</span>
+    <span class="pill accent">🤝 Collaboration on orders</span>
+    <span class="pill accent">🗼 Control Tower</span>
+  </div>
+  <p>A deeper structural problem made everything harder: LSPs weren't rigorous about updating orders, which cascaded into inaccurate inventory. Before improving the UI, we had to fix the data collection layer itself.</p>
+
+  <blockquote>
+    <p>"I see the order status, but I don't know what it means or it doesn't match reality."</p>
+    <cite>— User interview, Watershop</cite>
+  </blockquote>
+
+  <blockquote>
+    <p>"I cannot create orders without a date — what I really need is to know when the truck will arrive in store."</p>
+    <cite>— Sales × Supply Support at Ikea</cite>
+  </blockquote>
+
+  <hr class="section-divider" />
+
+  <h2>Research</h2>
+  <p>Before designing anything, I ran <strong>8 user interviews</strong> across key accounts: Ikea, Leroy Merlin, Sézane, Arkolia, FEFE, Linxens, IES, and Transport Dupas Lebeda.</p>
+  <h3>Key findings</h3>
+  <div class="feature-block">
+    <ul>
+      <li>Pickup date logic was confusing when LSPs managed transport — only the delivery date matters to shippers</li>
+      <li>Users couldn't identify what information was shared with their LSP</li>
+      <li>Stock adjustment was done blind — no visibility on the impact of changes before confirming</li>
+      <li>Multi-unit stock (pallets, boxes, units) created constant calculation errors</li>
+    </ul>
+  </div>
+
+  <hr class="section-divider" />
+
+  <h2>Feature 1 — Inventory & Stock Architecture</h2>
+  <p class="hero-label" style="margin:0 0 16px; font-size:10px;">Pillar: 🗂 Inventory visibility</p>
+
+  <h3>Problem</h3>
+  <p>The stock page was a flat list with no hierarchy. LSPs manage stock at the <strong>batch level</strong>, but the UI showed everything at reference level only. Adjusting inventory was done blind — no real-time feedback, no variation preview, no multi-unit support. A wrong adjustment cascaded into incorrect orders and billing disputes.</p>
+
+  <h3>Solution</h3>
+  <div class="feature-block">
+    <h3>Stock situation page</h3>
+    <ul>
+      <li>Hierarchical table: references expand to show batch-level rows</li>
+      <li>4 KPI summary cards at the top (total refs, total stock, forecasted, alerts)</li>
+      <li>Search + filters + group by + column visibility controls</li>
+    </ul>
+  </div>
+  <div class="feature-block">
+    <h3>Inventory adjustment</h3>
+    <ul>
+      <li>3 parallel inputs: <strong>EACH / BOX / PALLET</strong></li>
+      <li>Auto-conversion between units (1 pallet = 100 each)</li>
+      <li>Variation displayed immediately in <strong style="color:#2d9e6b">green (+)</strong> or <strong style="color:var(--accent)">red (−)</strong></li>
+      <li>Inputs disabled if no batch is selected (preventing orphan adjustments)</li>
+    </ul>
+  </div>
+  <p><em>Example: Enter 2 pallets + 142 each. Previous stock: 1 pallet + 10 each (110 each). System calculates: 342 − 110 = +232 each — shown instantly.</em></p>
+
+  <hr class="section-divider" />
+
+  <h2>Feature 2 — Order Workflow Redesign</h2>
+  <p class="hero-label" style="margin:0 0 16px; font-size:10px;">Pillar: 🤝 Collaboration on orders</p>
+
+  <h3>Problem</h3>
+  <p>The order creation flow was rigid. Average creation time: <strong>48 minutes</strong> for some users. Pickup date was required even when the LSP handled transport, status labels didn't match operational reality, and notice periods couldn't be configured per contract.</p>
+
+  <h3>Solution — 3 core principles</h3>
+  <div class="pill-row">
+    <span class="pill"><strong>Permissive</strong> — remove blockers</span>
+    <span class="pill"><strong>Omniscient</strong> — flag everything unusual</span>
+    <span class="pill"><strong>Modular</strong> — adapt per contract</span>
+  </div>
+  <div class="feature-block">
+    <ul>
+      <li>Date logic split: when LSP handles transport → only delivery date required</li>
+      <li>Order status labels rewritten to match real operational states</li>
+      <li>Flexible notice period configuration per contract</li>
+      <li>Inline reference creation during order flow</li>
+      <li>Comments visible at every stage for both shipper and LSP</li>
+    </ul>
+  </div>
+
+  <hr class="section-divider" />
+
+  <h2>Feature 3 — Transportation Module</h2>
+  <p class="hero-label" style="margin:0 0 16px; font-size:10px;">Pillar: 🗼 Control Tower</p>
+
+  <h3>Problem</h3>
+  <p>Shippers didn't see Spacefill as a transport tool — only a warehouse tool. No carrier management, no cross-warehouse movements. Multi-warehouse accounts were being lost.</p>
+
+  <h3>Solution</h3>
+  <div class="feature-block">
+    <h3>Carrier Book</h3>
+    <ul>
+      <li>Settings section where shippers add their regular carriers</li>
+      <li>Carrier specified at order creation</li>
+      <li>Foundation for future: pricing grids, contracts, schedules</li>
+    </ul>
+  </div>
+  <div class="feature-block">
+    <h3>Stock Transfer</h3>
+    <ul>
+      <li>New order type: 1 exit + 1 entry linked via shared <code>meta_order_id</code></li>
+      <li>Any action (cancel, update, reschedule) syncs both orders automatically</li>
+      <li>LSPs see individual warehouse orders unchanged</li>
+    </ul>
+  </div>
+
+  <hr class="section-divider" />
+
+  <h2>Process</h2>
+  <div class="process-steps">
+    <div class="process-step"><div class="step-num">01</div><div class="step-content"><strong>Discovery</strong><span>Sales calls, user interviews, CSM feedback synthesis</span></div></div>
+    <div class="process-step"><div class="step-num">02</div><div class="step-content"><strong>Framing</strong><span>How Might We statements, problem prioritization with PMs</span></div></div>
+    <div class="process-step"><div class="step-num">03</div><div class="step-content"><strong>Exploration</strong><span>Competitive benchmarking — Shipbob, FBA, Deposco</span></div></div>
+    <div class="process-step"><div class="step-num">04</div><div class="step-content"><strong>Design</strong><span>Wireframes → high-fidelity in Figma, migrated to new design system</span></div></div>
+    <div class="process-step"><div class="step-num">05</div><div class="step-content"><strong>Validation</strong><span>Moderated user tests with POC clients, iterative refinement</span></div></div>
+    <div class="process-step"><div class="step-num">06</div><div class="step-content"><strong>Handoff</strong><span>Annotated Figma specs, dev collaboration in sprints</span></div></div>
+  </div>
+
+  <hr class="section-divider" />
+
+  <h2>Takeaways</h2>
+  <div class="takeaway"><strong>Being the only designer means being strategic.</strong><p>I couldn't design everything — the 3-pillar framework kept prioritization aligned even when requests came from every direction.</p></div>
+  <div class="takeaway"><strong>Data quality is a UX problem.</strong><p>The inventory issues weren't just visual — they stemmed from missing data. Fixing the collection layer before redesigning the display was the key insight.</p></div>
+  <div class="takeaway"><strong>Logistics is a trust product.</strong><p>Every confusing label or missing confirmation creates real operational cost. Design precision matters more here than anywhere.</p></div>
+  <div class="takeaway"><strong>Sales calls beat user interviews.</strong><p>The best insights came from sitting in on sales calls and reading CSM notes — not formal interviews. The gap between what users say and what they do was massive.</p></div>
+
+  <div class="nav-case">
+    <span></span>
+    <a href="mixup.html" class="next">
+      Next — Mixup
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+
+</div>
+</body>
+</html>

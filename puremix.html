@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Puremix — Momoko Sakamoto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f0f0d; --ink-muted: #6b6b60; --ink-faint: #b8b8ad;
+      --paper: #f7f6f2; --paper-warm: #eeecea; --accent: #c8451a;
+      --accent-light: #f5ede9; --border: #e2e0da;
+      --serif: 'Instrument Serif', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --max: 720px; --nav-h: 64px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--paper); color: var(--ink); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; background: rgba(247,246,242,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--serif); font-size: 18px; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+    .nav-back { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-muted); text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--ink); }
+    .nav-back:hover svg { transform: translateX(-3px); }
+    .nav-back svg { transition: transform 0.2s; }
+    .hero { max-width: var(--max); margin: 0 auto; padding: calc(var(--nav-h) + 80px) 40px 64px; }
+    .hero-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    .hero-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--ink-faint); }
+    .hero h1 { font-family: var(--serif); font-size: clamp(36px, 6vw, 64px); line-height: 1.05; letter-spacing: -0.02em; font-weight: 400; margin-bottom: 24px; }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero-desc { font-size: 16px; color: var(--ink-muted); line-height: 1.75; max-width: 560px; margin-bottom: 40px; }
+    .meta-row { display: flex; flex-wrap: wrap; gap: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 80px; }
+    .meta-item { padding: 16px 24px 16px 0; margin-right: 24px; border-right: 1px solid var(--border); }
+    .meta-item:last-child { border-right: none; }
+    .meta-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 4px; }
+    .meta-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+    .content { max-width: var(--max); margin: 0 auto; padding: 0 40px 120px; }
+    h2 { font-family: var(--serif); font-size: clamp(24px, 3vw, 34px); font-weight: 400; letter-spacing: -0.015em; line-height: 1.15; margin: 64px 0 20px; color: var(--ink); }
+    h2:first-child { margin-top: 0; }
+    h3 { font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); margin: 40px 0 12px; }
+    p { font-size: 15px; color: var(--ink-muted); line-height: 1.85; margin-bottom: 16px; }
+    p strong { color: var(--ink); font-weight: 500; }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 32px; }
+    .pill { font-size: 12px; color: var(--ink-muted); background: var(--paper-warm); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; }
+    .pill.accent { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
+    .feature-block { border: 1px solid var(--border); border-radius: 4px; padding: 28px 32px; margin: 24px 0; background: var(--paper-warm); }
+    .feature-block h3 { margin-top: 0; }
+    .feature-block ul { padding-left: 16px; margin-top: 8px; }
+    .feature-block li { font-size: 14px; color: var(--ink-muted); line-height: 1.7; margin-bottom: 4px; }
+    .feature-block li strong { color: var(--ink); }
+    .stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin: 24px 0; }
+    .stat-item { background: var(--paper); padding: 20px; }
+    .stat-pct { font-family: var(--serif); font-style: italic; font-size: 28px; color: var(--ink); line-height: 1; margin-bottom: 4px; }
+    .stat-label { font-size: 12px; color: var(--ink-muted); line-height: 1.4; }
+    .section-divider { border: none; border-top: 1px solid var(--border); margin: 64px 0; }
+    .process-steps { margin: 24px 0; }
+    .process-step { display: flex; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+    .process-step:first-child { border-top: 1px solid var(--border); }
+    .step-num { font-family: var(--serif); font-style: italic; font-size: 13px; color: var(--ink-faint); width: 24px; flex-shrink: 0; padding-top: 2px; }
+    .step-content strong { font-size: 14px; font-weight: 500; color: var(--ink); display: block; margin-bottom: 2px; }
+    .step-content span { font-size: 13px; color: var(--ink-muted); }
+    .takeaway { padding: 20px 0; border-bottom: 1px solid var(--border); }
+    .takeaway:first-child { border-top: 1px solid var(--border); }
+    .takeaway strong { font-size: 14px; font-weight: 500; color: var(--ink); display: block; margin-bottom: 4px; }
+    .takeaway p { font-size: 13px; color: var(--ink-muted); margin: 0; line-height: 1.6; }
+    .brands { display: flex; gap: 12px; flex-wrap: wrap; margin: 20px 0 32px; }
+    .brand { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid var(--border); border-radius: 4px; font-size: 13px; color: var(--ink); }
+    .brand-emoji { font-size: 16px; }
+    .nav-case { display: flex; justify-content: space-between; align-items: center; margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--border); }
+    .nav-case a { display: flex; align-items: center; gap: 10px; text-decoration: none; font-size: 13px; color: var(--ink-muted); letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-case a:hover { color: var(--ink); }
+    @media (max-width: 700px) {
+      nav { padding: 0 20px; }
+      .hero, .content { padding-left: 20px; padding-right: 20px; }
+      .stat-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Momoko Sakamoto</a>
+  <a href="index.html" class="nav-back">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    All work
+  </a>
+</nav>
+
+<div class="hero">
+  <p class="hero-label">Case study — 03</p>
+  <h1>Turning a niche library into<br>a platform people <em>come back to.</em></h1>
+  <p class="hero-desc">Puremix had a loyal community and hundreds of videos. But new users couldn't understand what it was, and the platform was losing ground to competitors. I led the full product redesign as PM.</p>
+  <div class="meta-row">
+    <div class="meta-item"><div class="meta-label">Company</div><div class="meta-value">Puremix</div></div>
+    <div class="meta-item"><div class="meta-label">Role</div><div class="meta-value">Product Manager</div></div>
+    <div class="meta-item"><div class="meta-label">Period</div><div class="meta-value">2022 – 2024</div></div>
+    <div class="meta-item"><div class="meta-label">Type</div><div class="meta-value">B2C SaaS · Edtech · Audio</div></div>
+  </div>
+</div>
+
+<div class="content">
+
+  <h2>Context</h2>
+  <p>Founded in 2010, Puremix is a subscription platform for audio engineers — hundreds of tutorial videos on mixing, mastering, recording and production. It had become the reference in its niche, but resting on past success had left it vulnerable.</p>
+  <p>Puremix wasn't just one product — it was a <strong>house of brands</strong>:</p>
+  <div class="brands">
+    <div class="brand"><span class="brand-emoji">🎬</span> Puremix — video streaming</div>
+    <div class="brand"><span class="brand-emoji">💬</span> Mixup.audio — collaboration</div>
+    <div class="brand"><span class="brand-emoji">🔌</span> Process.audio — plugins</div>
+  </div>
+  <p>The three products existed in parallel but felt completely disconnected to users. Paying members often didn't know about Mixup or Process. New visitors had no idea what Puremix actually was.</p>
+
+  <hr class="section-divider" />
+
+  <h2>Research</h2>
+  <p><strong>100+ survey responses</strong> from current members. This wasn't guesswork — the redesign was built on real behavioral data.</p>
+
+  <h3>How users watch videos</h3>
+  <div class="stat-grid">
+    <div class="stat-item"><div class="stat-pct">60.9%</div><div class="stat-label">Mostly search the existing library</div></div>
+    <div class="stat-item"><div class="stat-pct">32.4%</div><div class="stat-label">Mostly watch fresh content</div></div>
+    <div class="stat-item"><div class="stat-pct">76.6%</div><div class="stat-label">Discover new videos via newsletter</div></div>
+    <div class="stat-item"><div class="stat-pct">57.8%</div><div class="stat-label">Take notes while watching</div></div>
+  </div>
+
+  <p><strong>Key insight:</strong> The core user behavior is <em>search-first, not browse-first</em>. Most members come with a specific question and search for an answer — not to scroll a feed. This completely changed how we approached navigation and content discovery.</p>
+
+  <h3>What members wished existed</h3>
+  <div class="pill-row">
+    <span class="pill">51.8% — More tips & tricks</span>
+    <span class="pill">50.1% — More advanced content</span>
+    <span class="pill">38.7% — More genre diversity</span>
+  </div>
+
+  <h3>Why members churned</h3>
+  <div class="pill-row">
+    <span class="pill accent">Cost</span>
+    <span class="pill accent">Not enough time</span>
+    <span class="pill accent">Not enough new content</span>
+  </div>
+
+  <hr class="section-divider" />
+
+  <h2>Strategy</h2>
+  <p>Three business objectives shaped every decision:</p>
+  <div class="feature-block">
+    <ul>
+      <li><strong>Make everyone understand what Puremix is</strong> — clearly, immediately, on first visit</li>
+      <li><strong>Make the brand resonate beyond the existing community</strong> — attract new users</li>
+      <li><strong>Turn the library into a learning + community platform</strong> — reduce dependency on expensive new video production</li>
+    </ul>
+  </div>
+  <p>We structured work around three priorities: <strong>Clarity</strong> (navigation and IA), <strong>Content experience</strong> (video discovery and free/pro separation), and <strong>Community</strong> (engagement beyond passive watching).</p>
+
+  <hr class="section-divider" />
+
+  <h2>What we built</h2>
+
+  <h3>Homepage redesign</h3>
+  <p>A clear value proposition above the fold. New visitors now understand within seconds: what Puremix teaches, who the mentors are, what membership gives them. Branding aligned across all three products.</p>
+
+  <h3>Video library redesign</h3>
+  <p>Cards redesigned with mentor names, categories, and visual identity per genre. Free vs. pro content clearly labelled. Search and filtering overhauled to match the dominant <strong>search-first behavior</strong>.</p>
+
+  <h3>Mentor pages</h3>
+  <p>Dedicated profiles for each mentor — background, credits, and video catalog. Mentors were identified in research as the primary reason members trusted and returned to Puremix.</p>
+
+  <h3>Free vs. pro separation</h3>
+  <p>Explicit content gating with upgrade prompts at natural decision points, without degrading the free experience. Designed to maximize value for both segments while driving conversion.</p>
+
+  <h3>Branding revamp</h3>
+  <p>Logos and video thumbnails aligned across Puremix, Mixup, and Process. A consistent visual language that signals they're part of the same family — not three different companies.</p>
+
+  <hr class="section-divider" />
+
+  <h2>Process</h2>
+  <div class="process-steps">
+    <div class="process-step"><div class="step-num">01</div><div class="step-content"><strong>Audit</strong><span>Content audit of the full library, feature inventory, competitive benchmarking</span></div></div>
+    <div class="process-step"><div class="step-num">02</div><div class="step-content"><strong>Research</strong><span>100+ survey responses, user testing sessions, churned member interviews</span></div></div>
+    <div class="process-step"><div class="step-num">03</div><div class="step-content"><strong>Strategy</strong><span>Brand strategy, project vision, priority framework with stakeholders</span></div></div>
+    <div class="process-step"><div class="step-num">04</div><div class="step-content"><strong>Information architecture</strong><span>Full IA redesign, navigation restructure, search-first approach</span></div></div>
+    <div class="process-step"><div class="step-num">05</div><div class="step-content"><strong>Design</strong><span>Design system, brand design, high-fidelity mockups</span></div></div>
+    <div class="process-step"><div class="step-num">06</div><div class="step-content"><strong>Validation</strong><span>Usability testing, iteration on navigation and content discovery</span></div></div>
+  </div>
+
+  <hr class="section-divider" />
+
+  <h2>Takeaways</h2>
+  <div class="takeaway"><strong>Clarity is a product feature.</strong><p>When users can't explain what your product does in one sentence, you have a positioning problem — not a design problem. The redesign started with words before pixels.</p></div>
+  <div class="takeaway"><strong>Search-first users need a different IA.</strong><p>The instinct was a beautiful homepage feed. The data said users come with a specific question. That completely changed the navigation and categorization approach.</p></div>
+  <div class="takeaway"><strong>Community is a retention strategy.</strong><p>The most sustainable way to reduce churn wasn't more video production — it was giving members reasons to engage with each other at lower cost.</p></div>
+  <div class="takeaway"><strong>A house of brands needs a unifying story.</strong><p>Three good products that felt like three different companies. The redesign's biggest unlock wasn't any single feature — it was making the relationship between them visible.</p></div>
+
+  <div class="nav-case">
+    <a href="mixup.html">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Prev — Mixup
+    </a>
+    <span></span>
+  </div>
+
+</div>
+</body>
+</html>
