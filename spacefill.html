@@ -150,6 +150,11 @@
   </div>
   <p>A deeper structural problem made everything harder: LSPs weren't rigorous about updating orders, which cascaded into inaccurate inventory. Before improving the UI, we had to fix the data collection layer itself.</p>
 
+  <div class="img-pair">
+    <div class="img-pair-item"><img src="images/spacefill-product-illu-1.jpeg" alt="Spacefill — Enterprise to 3PL integration" /><div class="img-pair-caption">Enterprise ↔ Spacefill ↔ 3PL</div></div>
+    <div class="img-pair-item"><img src="images/spacefill-product-illu-2.jpeg" alt="Control Tower — Venn diagram" /><div class="img-pair-caption">Control Tower — visibility, orders, connectivity</div></div>
+  </div>
+
   <blockquote>
     <p>"I see the order status, but I don't know what it means or it doesn't match reality."</p>
     <cite>— User interview, Watershop</cite>
@@ -201,6 +206,16 @@
     </ul>
   </div>
   <p><em>Example: Enter 2 pallets + 142 each. Previous stock: 1 pallet + 10 each (110 each). System calculates: 342 − 110 = +232 each — shown instantly.</em></p>
+
+  <div class="case-img">
+    <img src="images/spacefill-stock-situation.jpeg" alt="Stock situation page" />
+    <div class="case-img-caption">Stock situation — hierarchical table with batch-level rows and KPI summary</div>
+  </div>
+
+  <div class="case-img">
+    <img src="images/spacefill-inventory-adjustment.jpg" alt="Inventory adjustment" />
+    <div class="case-img-caption">Inventory adjustment — multi-unit inputs with real-time variation (+232, +10, -24)</div>
+  </div>
 
   <hr class="section-divider" />
 
@@ -283,5 +298,31 @@
   </div>
 
 </div>
+<script>
+  const carousels = {};
+  function initCarousel(id) {
+    const el = document.getElementById(id);
+    const slides = el.querySelectorAll('.carousel-slide');
+    const dotsEl = document.getElementById(id + '-dots');
+    carousels[id] = { current: 0, total: slides.length };
+    slides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.onclick = () => goToSlide(id, i);
+      dotsEl.appendChild(dot);
+    });
+  }
+  function goToSlide(id, index) {
+    const el = document.getElementById(id);
+    const track = el.querySelector('.carousel-track');
+    const c = carousels[id];
+    c.current = (index + c.total) % c.total;
+    track.style.transform = `translateX(-${c.current * 100}%)`;
+    el.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === c.current));
+  }
+  function nextSlide(id) { goToSlide(id, carousels[id].current + 1); }
+  function prevSlide(id) { goToSlide(id, carousels[id].current - 1); }
+  ['c-orders'].forEach(initCarousel);
+</script>
 </body>
 </html>

@@ -23,8 +23,8 @@
     .nav-logo { font-family: var(--serif); font-size: 18px; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
     .nav-back { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-muted); text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
     .nav-back:hover { color: var(--ink); }
-    .nav-back:hover svg { transform: translateX(-3px); }
     .nav-back svg { transition: transform 0.2s; }
+    .nav-back:hover svg { transform: translateX(-3px); }
     .hero { max-width: var(--max); margin: 0 auto; padding: calc(var(--nav-h) + 80px) 40px 64px; }
     .hero-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
     .hero-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--ink-faint); }
@@ -58,7 +58,7 @@
     .impact-num { font-family: var(--serif); font-style: italic; font-size: 32px; color: var(--accent); line-height: 1; margin-bottom: 6px; }
     .impact-label { font-size: 12px; color: var(--ink-muted); line-height: 1.4; }
     .section-divider { border: none; border-top: 1px solid var(--border); margin: 64px 0; }
-    .process-steps { counter-reset: step; margin: 24px 0; }
+    .process-steps { margin: 24px 0; }
     .process-step { display: flex; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--border); }
     .process-step:first-child { border-top: 1px solid var(--border); }
     .step-num { font-family: var(--serif); font-style: italic; font-size: 13px; color: var(--ink-faint); width: 24px; flex-shrink: 0; padding-top: 2px; }
@@ -77,10 +77,36 @@
     .nav-case a { display: flex; align-items: center; gap: 10px; text-decoration: none; font-size: 13px; color: var(--ink-muted); letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
     .nav-case a:hover { color: var(--ink); }
     .nav-case .next { text-align: right; }
+
+    /* Carousel */
+    .carousel { position: relative; margin: 32px 0; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); background: var(--paper-warm); }
+    .carousel-track { display: flex; transition: transform 0.4s ease; }
+    .carousel-slide { min-width: 100%; }
+    .carousel-slide img { width: 100%; display: block; }
+    .carousel-caption { font-size: 11px; color: var(--ink-faint); letter-spacing: 0.06em; text-transform: uppercase; padding: 10px 16px; text-align: center; border-top: 1px solid var(--border); background: var(--paper); }
+    .carousel-controls { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 12px; background: var(--paper); border-top: 1px solid var(--border); }
+    .carousel-btn { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border); background: var(--paper); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--ink-muted); transition: all 0.2s; }
+    .carousel-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+    .carousel-dots { display: flex; gap: 6px; }
+    .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); cursor: pointer; transition: background 0.2s; }
+    .carousel-dot.active { background: var(--ink); }
+
+    /* Image pair */
+    .img-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 32px 0; }
+    .img-pair-item { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+    .img-pair-item img { width: 100%; display: block; }
+    .img-pair-caption { font-size: 11px; color: var(--ink-faint); letter-spacing: 0.06em; text-transform: uppercase; padding: 8px 12px; text-align: center; background: var(--paper); border-top: 1px solid var(--border); }
+
+    /* Single image */
+    .case-img { margin: 32px 0; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+    .case-img img { width: 100%; display: block; }
+    .case-img-caption { font-size: 11px; color: var(--ink-faint); letter-spacing: 0.06em; text-transform: uppercase; padding: 10px; text-align: center; background: var(--paper); border-top: 1px solid var(--border); }
+
     @media (max-width: 700px) {
       nav { padding: 0 20px; }
       .hero, .content { padding-left: 20px; padding-right: 20px; }
       .impact-row { grid-template-columns: 1fr; }
+      .img-pair { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -97,20 +123,21 @@
 <div class="hero">
   <p class="hero-label">Case study — 02</p>
   <h1>Designing a workspace where<br>music gets <em>made together.</em></h1>
-  <p class="hero-desc">Mixup started as a raw technical prototype. I designed it from scratch into a collaboration platform for audio engineers and their clients — 0 to 1, from logo to launch.</p>
+  <p class="hero-desc">Mixup started as a raw technical prototype. I designed it from scratch into a collaboration platform for audio engineers and their clients — 0 to 1, and beyond.</p>
   <div class="meta-row">
     <div class="meta-item"><div class="meta-label">Company</div><div class="meta-value">Mixup.audio</div></div>
     <div class="meta-item"><div class="meta-label">Role</div><div class="meta-value">Product Designer</div></div>
-    <div class="meta-item"><div class="meta-label">Period</div><div class="meta-value">2020</div></div>
+    <div class="meta-item"><div class="meta-label">Period</div><div class="meta-value">2020 – 2022</div></div>
     <div class="meta-item"><div class="meta-label">Type</div><div class="meta-value">B2C SaaS · Audio · 0→1</div></div>
   </div>
 </div>
 
 <div class="content">
 
-  <h2>Context</h2>
+  <!-- CHAPTER 1: 0→1 -->
+  <h2>Chapter 1 — <em>0 to 1</em></h2>
   <p>Mixup is a SaaS built by the founders of Puremix. Think Google Docs for music — a shared workspace where audio engineers upload tracks, collect timestamped feedback, and manage versions with their clients.</p>
-  <p>The founder is a Grammy-nominated engineer who has worked with <strong>Shakira, Jennifer Lopez, and Mark Ronson</strong>. His credibility was the primary acquisition channel — the product had to live up to the brand.</p>
+  <p>The founder is a Grammy-nominated engineer who has worked with <strong>Shakira, Jennifer Lopez, and Mark Ronson</strong>. His credibility was the primary acquisition channel — the product had to live up to the brand. Before my arrival, there was no designer. Developers built the interface directly.</p>
 
   <div class="impact-row">
     <div class="impact-item"><div class="impact-num">+10k</div><div class="impact-label">Free & paid users one year after launch</div></div>
@@ -118,78 +145,122 @@
     <div class="impact-item"><div class="impact-num">10+</div><div class="impact-label">Features designed and shipped</div></div>
   </div>
 
-  <hr class="section-divider" />
-
-  <h2>The challenge</h2>
-  <p>The product had one core complexity: <strong>designing for two completely different users</strong> sharing the same interface.</p>
-  <div class="pill-row">
-    <span class="pill accent">🎛 Audio engineers (admin) — upload, version, share, manage</span>
-    <span class="pill">🎤 Artists & clients (guest) — just listen and comment</span>
-  </div>
-  <p>A feature that gave engineers control couldn't confuse a guest who received a link and just wants to play the track.</p>
-
-  <hr class="section-divider" />
-
-  <h2>What we built</h2>
-
   <h3>Dashboard</h3>
-  <p>The central hub where engineers manage all their projects — organized into folders, current and archived. A quickview panel previews sharing status, comment count, and version history without navigating away.</p>
-  <p><em>Before: a dense data table with no visual hierarchy. After: card layout with project status, quickview panel, and the neon-inspired dark theme built around studio aesthetics.</em></p>
+  <p>The central hub where engineers manage all their projects. A quickview panel previews sharing status, comment count, and version history without navigating away.</p>
 
-  <h3>Player</h3>
-  <p>The core workspace where collaboration happens. An engineer shares a link — the client opens it, listens, and leaves feedback.</p>
-  <div class="feature-block">
-    <ul>
-      <li><strong>Audio versioning</strong> — upload v1, v2, v3; all accessible and comparable</li>
-      <li><strong>Timestamped comments</strong> — anchored to specific moments in the waveform</li>
-      <li><strong>General comments</strong> — for overall feedback, separate from timestamp thread</li>
-      <li><strong>Sharing modes</strong> — public link, password-protected, or private</li>
-      <li><strong>Admin panel</strong> — permissions and settings, collapsible within the player view</li>
-    </ul>
+  <div class="carousel" id="c-dashboard">
+    <div class="carousel-track">
+      <div class="carousel-slide"><img src="images/mixup-before-dashboard.jpg" alt="Dashboard before" /><div class="carousel-caption">Before — V1 prototype, no designer</div></div>
+      <div class="carousel-slide"><img src="images/mixup-v1-dashboard.webp" alt="Dashboard V1" /><div class="carousel-caption">V1 — Dark theme introduced, quickview panel</div></div>
+      <div class="carousel-slide"><img src="images/mixup-v2-improved-dashboard.webp" alt="Dashboard V2" /><div class="carousel-caption">V2 — One click to enter track, playlist or folder</div></div>
+    </div>
+    <div class="carousel-controls">
+      <button class="carousel-btn" onclick="prevSlide('c-dashboard')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="carousel-dots" id="c-dashboard-dots"></div>
+      <button class="carousel-btn" onclick="nextSlide('c-dashboard')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2L10 7L5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
   </div>
 
-  <h3>Album</h3>
-  <p>A workspace grouping multiple players — for sharing a full EP or album. Each player has its own featured version; the admin promotes one version per track to appear on the album view.</p>
+  <h3>Player / Track</h3>
+  <p>The core workspace where collaboration happens. An engineer shares a link — the client opens it, listens, and leaves timestamped feedback. Versions listed under the player for easy A/B comparison.</p>
 
-  <h3>Design system</h3>
-  <p>Built from scratch. The brand direction: <strong>neon lights in an audio studio</strong>. Dark background, vivid accent colors (teal, purple, amber) that evoke studio monitors and mixing console lighting. Designed to feel professional and music-native — not like a generic SaaS tool.</p>
+  <div class="carousel" id="c-player">
+    <div class="carousel-track">
+      <div class="carousel-slide"><img src="images/mixup-before-player.jpg" alt="Player before" /><div class="carousel-caption">Before — Admin panel separate, waveform and comments competing</div></div>
+      <div class="carousel-slide"><img src="images/mixup-v1-Player-settings.jpg" alt="Player V1" /><div class="carousel-caption">V1 — Admin panel lateral, versions list, comment modal</div></div>
+      <div class="carousel-slide"><img src="images/mixup-v2-improved-track.webp" alt="Player V2" /><div class="carousel-caption">After — Unified layout, versions listed under player, comments in lightbox</div></div>
+    </div>
+    <div class="carousel-controls">
+      <button class="carousel-btn" onclick="prevSlide('c-player')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="carousel-dots" id="c-player-dots"></div>
+      <button class="carousel-btn" onclick="nextSlide('c-player')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2L10 7L5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </div>
 
-  <hr class="section-divider" />
+  <h3>Album / Playlist</h3>
+  <p>A workspace grouping multiple tracks — for sharing a full EP or album. Each track has its own starred version; the admin promotes one per track for the client view.</p>
 
-  <h2>User testing</h2>
+  <div class="carousel" id="c-album">
+    <div class="carousel-track">
+      <div class="carousel-slide"><img src="images/mixup-v1-Album-settings.jpg" alt="Album V1" /><div class="carousel-caption">V1 — Admin panel lateral, playlist vs track distinction unclear</div></div>
+      <div class="carousel-slide"><img src="images/mixup-v2-improved-album.webp" alt="Album V2" /><div class="carousel-caption">After — Clear playlist identity, starred versions, distinct from track view</div></div>
+    </div>
+    <div class="carousel-controls">
+      <button class="carousel-btn" onclick="prevSlide('c-album')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="carousel-dots" id="c-album-dots"></div>
+      <button class="carousel-btn" onclick="nextSlide('c-album')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2L10 7L5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </div>
+
+  <h3>Mobile</h3>
+  <p>Responsive design for engineers and artists on the go — dashboard, playlist, player and comments all adapted for mobile.</p>
+
+  <div class="img-pair">
+    <div class="img-pair-item"><img src="images/mixup-v2-improved-mobile.webp" alt="Mobile dashboard and playlist" /><div class="img-pair-caption">Dashboard & Playlist</div></div>
+    <div class="img-pair-item"><img src="images/mixup-v2-improved-mobile-2.webp" alt="Mobile player and comments" /><div class="img-pair-caption">Player & Comments</div></div>
+  </div>
+
+  <h3>User testing</h3>
   <p><strong>3 semi-directed scenarios · 5 participants · 6 prioritized outcomes</strong></p>
-  <p>Profiles: Stéphan (audio engineer & teacher), Fab (audio engineer), Matis (producer), Maxime (producer), Franck (musician).</p>
-
-  <h3>Pain points found before launch</h3>
   <div class="pain-point"><div class="pain-num">01</div><div class="pain-content"><strong>Dashboard disorientation</strong><span>Users got lost browsing files from the quickview — context was unclear</span></div></div>
-  <div class="pain-point"><div class="pain-num">02</div><div class="pain-content"><strong>Player access friction</strong><span>Nobody double-clicked to open a player; the quickview → "Access player" path was too hidden</span></div></div>
-  <div class="pain-point"><div class="pain-num">03</div><div class="pain-content"><strong>Terminology confusion</strong><span>"Player" was confused with "playlist"; "album" and "showcase" weren't intuitive</span></div></div>
+  <div class="pain-point"><div class="pain-num">02</div><div class="pain-content"><strong>Player access friction</strong><span>Nobody double-clicked to open a player; the path was too hidden</span></div></div>
+  <div class="pain-point"><div class="pain-num">03</div><div class="pain-content"><strong>Terminology confusion</strong><span>"Player" confused with "playlist"; "album" and "showcase" not intuitive</span></div></div>
   <div class="pain-point"><div class="pain-num">04</div><div class="pain-content"><strong>Comment readability</strong><span>No visual hierarchy between timestamped and general feedback</span></div></div>
-  <div class="pain-point"><div class="pain-num">05</div><div class="pain-content"><strong>Hidden scroll in version list</strong><span>Users didn't realise the version list was scrollable; older versions invisible</span></div></div>
-  <div class="pain-point"><div class="pain-num">06</div><div class="pain-content"><strong>Admin panel duplication</strong><span>Separate admin page felt redundant and confused users needing to take action</span></div></div>
+  <div class="pain-point"><div class="pain-num">05</div><div class="pain-content"><strong>Hidden version list scroll</strong><span>Users didn't realise the version list was scrollable; older versions invisible</span></div></div>
+  <div class="pain-point"><div class="pain-num">06</div><div class="pain-content"><strong>Admin panel duplication</strong><span>Separate admin page felt redundant and confused users</span></div></div>
 
-  <h3>What we fixed</h3>
-  <div class="feature-block">
-    <ul>
-      <li>Single-click to open player from dashboard</li>
-      <li>Renamed terminology to match mental models</li>
-      <li>Redesigned comments with timestamp badges and threading</li>
-      <li>Added scroll indicators and version count to the version list</li>
-      <li>Collapsed admin settings into a side panel within the player, removing the standalone page</li>
-    </ul>
+  <hr class="section-divider" />
+
+  <!-- CHAPTER 2: NOTIFICATIONS -->
+  <h2>Chapter 2 — <em>Notifications</em></h2>
+  <p>After launch, a critical gap emerged: clients weren't being notified when engineers uploaded new versions. The feedback loop was broken — engineers uploaded, clients never knew. Key users like Chris Krotky, RJHollins, and Stefan Wessel reported this directly.</p>
+  <p>The challenge was designing a notification system for <strong>two user types with very different contexts</strong> — a logged-in engineer and a guest with no account who just received a link.</p>
+
+  <h3>Invitation flow</h3>
+  <p>The full logic of how notifications work depending on whether a user is logged in, has an account, or arrives from a bare URL — mapped before a single pixel was designed.</p>
+
+  <div class="case-img">
+    <img src="images/mixup-track-notif-flow.jpg" alt="Invitation and notification flow diagram" />
+    <div class="case-img-caption">Invitation & direct access flow — logged in vs guest vs no account</div>
+  </div>
+
+  <h3>Guest experience</h3>
+  <p>A guest arriving via a shared link has no account. The system needed to let them follow a project and receive notifications without forcing registration.</p>
+
+  <div class="img-pair">
+    <div class="img-pair-item"><img src="images/mixup-track-notif-follow.jpg" alt="Guest view step 1 — follow project banner" /><div class="img-pair-caption">Step 1 — Follow project banner, no account required</div></div>
+    <div class="img-pair-item"><img src="images/mixup-track-notif-sub.jpg" alt="Guest view step 2 — enter email modal" /><div class="img-pair-caption">Step 2 — Email modal, autofilled if available</div></div>
   </div>
 
   <hr class="section-divider" />
 
-  <h2>Process</h2>
-  <div class="process-steps">
-    <div class="process-step"><div class="step-num">01</div><div class="step-content"><strong>Audit</strong><span>Analyzed existing prototype, mapped all use cases across engineer and guest flows</span></div></div>
-    <div class="process-step"><div class="step-num">02</div><div class="step-content"><strong>Information architecture</strong><span>Restructured navigation: dashboard → player → album hierarchy</span></div></div>
-    <div class="process-step"><div class="step-num">03</div><div class="step-content"><strong>Wireframes</strong><span>Mobile-first wireframes to establish core flows before visual complexity</span></div></div>
-    <div class="process-step"><div class="step-num">04</div><div class="step-content"><strong>Design system</strong><span>Colors, typography, iconography, and component library from scratch</span></div></div>
-    <div class="process-step"><div class="step-num">05</div><div class="step-content"><strong>High-fidelity</strong><span>Dashboard, player, album — both admin and guest states</span></div></div>
-    <div class="process-step"><div class="step-num">06</div><div class="step-content"><strong>User testing + iteration</strong><span>3 scenarios, 5 users, 6 outcomes — iterated before launch</span></div></div>
-    <div class="process-step"><div class="step-num">07</div><div class="step-content"><strong>Continuous discovery</strong><span>Post-launch feedback via beta forum and surveys drove reprioritization</span></div></div>
+  <!-- CHAPTER 3: SHARING & PROTECTION -->
+  <h2>Chapter 3 — Sharing <em>& Protection</em></h2>
+  <p>In the music industry, leaks are a serious risk. Unreleased tracks, work-in-progress versions, and source files (WAV, high-resolution masters) are extremely sensitive. Engineers needed granular control over what they share, with whom, and in which format.</p>
+
+  <h3>Invite, access & download management</h3>
+  <p>Engineers invite collaborators by email or shareable link, control guest permissions, and define exactly which versions and formats are downloadable. The "Only starred version" option protects work-in-progress files and source material from being accessed before approval.</p>
+
+  <div class="carousel" id="c-sharing">
+    <div class="carousel-track">
+      <div class="carousel-slide"><img src="images/mixup-v1-Album-guest.jpg" alt="Add guests to project" /><div class="carousel-caption">Guest management — invite by email, shareable link, password protection</div></div>
+      <div class="carousel-slide"><img src="images/mixup-v1-Album-player.jpg" alt="Send invitation with message" /><div class="carousel-caption">Invitation with personalised message</div></div>
+      <div class="carousel-slide"><img src="images/mixup-sharing-track-download.jpg" alt="Manage track downloads — all versions" /><div class="carousel-caption">Download manager — per-version and per-format control (MP3, Source WAV)</div></div>
+      <div class="carousel-slide"><img src="images/mixup-sharing-starred-track.jpg" alt="Manage track downloads — starred only" /><div class="carousel-caption">Starred version only — only the approved version is downloadable</div></div>
+    </div>
+    <div class="carousel-controls">
+      <button class="carousel-btn" onclick="prevSlide('c-sharing')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="carousel-dots" id="c-sharing-dots"></div>
+      <button class="carousel-btn" onclick="nextSlide('c-sharing')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2L10 7L5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </div>
+
+  <h3>Delivery</h3>
+  <p>Once the engineer shares the download link, the client lands on a dedicated delivery page — branded, clear, with a progress indicator as files are prepared.</p>
+
+  <div class="case-img">
+    <img src="images/mixup-sharing-track-delivery.jpg" alt="Track delivery page" />
+    <div class="case-img-caption">Delivery page — client receives selected files with progress indicator</div>
   </div>
 
   <hr class="section-divider" />
@@ -197,8 +268,8 @@
   <h2>Takeaways</h2>
   <div class="takeaway"><strong>Designing for two users is designing two products.</strong><p>The engineer and the guest have completely different mental models. Every screen had to work for both — constant tension between power and simplicity.</p></div>
   <div class="takeaway"><strong>Terminology is UX.</strong><p>The confusion between "player" and "playlist" showed that labels aren't just words — they're mental model anchors. Getting them wrong breaks the entire flow.</p></div>
-  <div class="takeaway"><strong>Stay vigilant about competitors.</strong><p>The audio collaboration space moved fast. Reprioritizing based on what competitors were shipping was as important as internal user feedback.</p></div>
-  <div class="takeaway"><strong>Marketing and design are the same first impression.</strong><p>Aligning the onboarding flow with the brand voice — from first ad to first login to first shared track — was one of the most impactful things we did for activation.</p></div>
+  <div class="takeaway"><strong>In music, trust is the product.</strong><p>Source files represent months of work and are worth protecting. The download manager wasn't a nice-to-have — it was the feature that made engineers feel safe using the platform professionally.</p></div>
+  <div class="takeaway"><strong>Stay vigilant about competitors.</strong><p>The audio collaboration space moved fast during development. Reprioritizing based on what competitors were shipping was as important as internal user feedback.</p></div>
 
   <div class="nav-case">
     <a href="spacefill.html">
@@ -212,5 +283,36 @@
   </div>
 
 </div>
+
+<script>
+  const carousels = {};
+
+  function initCarousel(id) {
+    const el = document.getElementById(id);
+    const slides = el.querySelectorAll('.carousel-slide');
+    const dotsEl = document.getElementById(id + '-dots');
+    carousels[id] = { current: 0, total: slides.length };
+    slides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.onclick = () => goToSlide(id, i);
+      dotsEl.appendChild(dot);
+    });
+  }
+
+  function goToSlide(id, index) {
+    const el = document.getElementById(id);
+    const track = el.querySelector('.carousel-track');
+    const c = carousels[id];
+    c.current = (index + c.total) % c.total;
+    track.style.transform = `translateX(-${c.current * 100}%)`;
+    el.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === c.current));
+  }
+
+  function nextSlide(id) { goToSlide(id, carousels[id].current + 1); }
+  function prevSlide(id) { goToSlide(id, carousels[id].current - 1); }
+
+  ['c-dashboard', 'c-player', 'c-album', 'c-sharing'].forEach(initCarousel);
+</script>
 </body>
 </html>

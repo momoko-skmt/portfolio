@@ -23,8 +23,8 @@
     .nav-logo { font-family: var(--serif); font-size: 18px; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
     .nav-back { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-muted); text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
     .nav-back:hover { color: var(--ink); }
-    .nav-back:hover svg { transform: translateX(-3px); }
     .nav-back svg { transition: transform 0.2s; }
+    .nav-back:hover svg { transform: translateX(-3px); }
     .hero { max-width: var(--max); margin: 0 auto; padding: calc(var(--nav-h) + 80px) 40px 64px; }
     .hero-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
     .hero-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--ink-faint); }
@@ -65,9 +65,27 @@
     .takeaway:first-child { border-top: 1px solid var(--border); }
     .takeaway strong { font-size: 14px; font-weight: 500; color: var(--ink); display: block; margin-bottom: 4px; }
     .takeaway p { font-size: 13px; color: var(--ink-muted); margin: 0; line-height: 1.6; }
-    .brands { display: flex; gap: 12px; flex-wrap: wrap; margin: 20px 0 32px; }
-    .brand { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid var(--border); border-radius: 4px; font-size: 13px; color: var(--ink); }
-    .brand-emoji { font-size: 16px; }
+    /* Carousel */
+    .carousel { position: relative; margin: 32px 0; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); }
+    .carousel-track { display: flex; transition: transform 0.4s ease; }
+    .carousel-slide { min-width: 100%; }
+    .carousel-slide img { width: 100%; display: block; }
+    .carousel-caption { font-size: 11px; color: var(--ink-faint); letter-spacing: 0.06em; text-transform: uppercase; padding: 10px 16px; text-align: center; border-top: 1px solid var(--border); background: var(--paper); }
+    .carousel-controls { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 12px; background: var(--paper); border-top: 1px solid var(--border); }
+    .carousel-btn { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border); background: var(--paper); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--ink-muted); transition: all 0.2s; }
+    .carousel-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+    .carousel-dots { display: flex; gap: 6px; }
+    .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); cursor: pointer; transition: background 0.2s; }
+    .carousel-dot.active { background: var(--ink); }
+    /* Image pair */
+    .img-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 32px 0; }
+    .img-pair-item { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+    .img-pair-item img { width: 100%; display: block; }
+    .img-pair-caption { font-size: 11px; color: var(--ink-faint); letter-spacing: 0.06em; text-transform: uppercase; padding: 8px 12px; text-align: center; background: var(--paper); border-top: 1px solid var(--border); }
+    /* Single image */
+    .case-img { margin: 32px 0; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+    .case-img img { width: 100%; display: block; }
+    .case-img-caption { font-size: 11px; color: var(--ink-faint); letter-spacing: 0.06em; text-transform: uppercase; padding: 10px; text-align: center; background: var(--paper); border-top: 1px solid var(--border); }
     .nav-case { display: flex; justify-content: space-between; align-items: center; margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--border); }
     .nav-case a { display: flex; align-items: center; gap: 10px; text-decoration: none; font-size: 13px; color: var(--ink-muted); letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
     .nav-case a:hover { color: var(--ink); }
@@ -75,6 +93,7 @@
       nav { padding: 0 20px; }
       .hero, .content { padding-left: 20px; padding-right: 20px; }
       .stat-grid { grid-template-columns: 1fr; }
+      .img-pair { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -104,18 +123,12 @@
 
   <h2>Context</h2>
   <p>Founded in 2010, Puremix is a subscription platform for audio engineers — hundreds of tutorial videos on mixing, mastering, recording and production. It had become the reference in its niche, but resting on past success had left it vulnerable.</p>
-  <p>Puremix wasn't just one product — it was a <strong>house of brands</strong>:</p>
-  <div class="brands">
-    <div class="brand"><span class="brand-emoji">🎬</span> Puremix — video streaming</div>
-    <div class="brand"><span class="brand-emoji">💬</span> Mixup.audio — collaboration</div>
-    <div class="brand"><span class="brand-emoji">🔌</span> Process.audio — plugins</div>
-  </div>
-  <p>The three products existed in parallel but felt completely disconnected to users. Paying members often didn't know about Mixup or Process. New visitors had no idea what Puremix actually was.</p>
+  <p>Puremix wasn't just one product — it was a <strong>house of brands</strong>: Puremix (video streaming), Mixup.audio (collaboration), and Process.audio (plugins). The three products existed in parallel but felt completely disconnected to users.</p>
 
   <hr class="section-divider" />
 
   <h2>Research</h2>
-  <p><strong>100+ survey responses</strong> from current members. This wasn't guesswork — the redesign was built on real behavioral data.</p>
+  <p><strong>100+ survey responses</strong> from current members.</p>
 
   <h3>How users watch videos</h3>
   <div class="stat-grid">
@@ -124,66 +137,50 @@
     <div class="stat-item"><div class="stat-pct">76.6%</div><div class="stat-label">Discover new videos via newsletter</div></div>
     <div class="stat-item"><div class="stat-pct">57.8%</div><div class="stat-label">Take notes while watching</div></div>
   </div>
+  <p><strong>Key insight:</strong> The core user behavior is search-first, not browse-first. This completely changed how we approached navigation and content discovery.</p>
 
-  <p><strong>Key insight:</strong> The core user behavior is <em>search-first, not browse-first</em>. Most members come with a specific question and search for an answer — not to scroll a feed. This completely changed how we approached navigation and content discovery.</p>
+  <hr class="section-divider" />
 
-  <h3>What members wished existed</h3>
-  <div class="pill-row">
-    <span class="pill">51.8% — More tips & tricks</span>
-    <span class="pill">50.1% — More advanced content</span>
-    <span class="pill">38.7% — More genre diversity</span>
+  <h2>Homepage redesign</h2>
+  <p>The old homepage didn't explain what Puremix was. New visitors couldn't understand the product within seconds. The redesign started with a clear value proposition above the fold, a unified navigation, and each content category presented as a distinct brand.</p>
+
+  <div class="case-img">
+    <img src="images/puremix-before-homepage.jpg" alt="Homepage before" />
+    <div class="case-img-caption">Before — no clear value prop, content categories unclear</div>
   </div>
 
-  <h3>Why members churned</h3>
-  <div class="pill-row">
-    <span class="pill accent">Cost</span>
-    <span class="pill accent">Not enough time</span>
-    <span class="pill accent">Not enough new content</span>
+  <h3>Homepage sections</h3>
+  <p>Each content category — Tutorials, Start to Finish, Inside the Mix — was given its own visual identity and featured section on the homepage. The mentor section and product suite were also surfaced to drive engagement and upgrade conversion.</p>
+
+  <div class="case-img">
+    <img src="images/puremix-homepage-new.jpg" alt="Homepage redesign — full page" />
+    <div class="case-img-caption">Homepage redesign — all sections</div>
   </div>
 
   <hr class="section-divider" />
 
-  <h2>Strategy</h2>
-  <p>Three business objectives shaped every decision:</p>
-  <div class="feature-block">
-    <ul>
-      <li><strong>Make everyone understand what Puremix is</strong> — clearly, immediately, on first visit</li>
-      <li><strong>Make the brand resonate beyond the existing community</strong> — attract new users</li>
-      <li><strong>Turn the library into a learning + community platform</strong> — reduce dependency on expensive new video production</li>
-    </ul>
+  <h2>Library redesign</h2>
+  <p>The library was the core of the product — but it was a flat list with no hierarchy. Users who came search-first couldn't quickly find what they needed. Each content category got its own dedicated page with a strong visual identity, search, and filtering.</p>
+
+  <div class="carousel" id="c-library">
+    <div class="carousel-track">
+      <div class="carousel-slide"><img src="images/puremix-1-tutorials-all.png" alt="All videos" /><div class="carousel-caption">All videos — search-first, category navigation in sidebar</div></div>
+      <div class="carousel-slide"><img src="images/puremix-2-tutorials-how-to.png" alt="How to listen" /><div class="carousel-caption">How to listen — sub-category with dedicated header</div></div>
+      <div class="carousel-slide"><img src="images/puremix-3-inside-the-mix-page.png" alt="Inside the mix page" /><div class="carousel-caption">Inside the mix — strong brand identity per category</div></div>
+      <div class="carousel-slide"><img src="images/puremix-4-mix-fix-page.png" alt="Mix fix page" /><div class="carousel-caption">Mix fix — colour-coded identity</div></div>
+      <div class="carousel-slide"><img src="images/puremix-5-start-to-finish-page.png" alt="Start to finish page" /><div class="carousel-caption">Start to finish — editorial-style card layout</div></div>
+      <div class="carousel-slide"><img src="images/puremix-6-start-to-finish-episodes.png" alt="Start to finish episodes" /><div class="carousel-caption">Episode list — free vs pro clearly labelled</div></div>
+      <div class="carousel-slide"><img src="images/puremix-7-start-to-finish-chapters.png" alt="Start to finish chapters" /><div class="carousel-caption">Chapters view — structured learning path</div></div>
+      <div class="carousel-slide"><img src="images/puremix-8-start-to-finish-description.png" alt="Start to finish description" /><div class="carousel-caption">Video description — mentor, reviews, suggestions</div></div>
+    </div>
+    <div class="carousel-controls">
+      <button class="carousel-btn" onclick="prevSlide('c-library')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="carousel-dots" id="c-library-dots"></div>
+      <button class="carousel-btn" onclick="nextSlide('c-library')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2L10 7L5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
   </div>
-  <p>We structured work around three priorities: <strong>Clarity</strong> (navigation and IA), <strong>Content experience</strong> (video discovery and free/pro separation), and <strong>Community</strong> (engagement beyond passive watching).</p>
 
-  <hr class="section-divider" />
 
-  <h2>What we built</h2>
-
-  <h3>Homepage redesign</h3>
-  <p>A clear value proposition above the fold. New visitors now understand within seconds: what Puremix teaches, who the mentors are, what membership gives them. Branding aligned across all three products.</p>
-
-  <h3>Video library redesign</h3>
-  <p>Cards redesigned with mentor names, categories, and visual identity per genre. Free vs. pro content clearly labelled. Search and filtering overhauled to match the dominant <strong>search-first behavior</strong>.</p>
-
-  <h3>Mentor pages</h3>
-  <p>Dedicated profiles for each mentor — background, credits, and video catalog. Mentors were identified in research as the primary reason members trusted and returned to Puremix.</p>
-
-  <h3>Free vs. pro separation</h3>
-  <p>Explicit content gating with upgrade prompts at natural decision points, without degrading the free experience. Designed to maximize value for both segments while driving conversion.</p>
-
-  <h3>Branding revamp</h3>
-  <p>Logos and video thumbnails aligned across Puremix, Mixup, and Process. A consistent visual language that signals they're part of the same family — not three different companies.</p>
-
-  <hr class="section-divider" />
-
-  <h2>Process</h2>
-  <div class="process-steps">
-    <div class="process-step"><div class="step-num">01</div><div class="step-content"><strong>Audit</strong><span>Content audit of the full library, feature inventory, competitive benchmarking</span></div></div>
-    <div class="process-step"><div class="step-num">02</div><div class="step-content"><strong>Research</strong><span>100+ survey responses, user testing sessions, churned member interviews</span></div></div>
-    <div class="process-step"><div class="step-num">03</div><div class="step-content"><strong>Strategy</strong><span>Brand strategy, project vision, priority framework with stakeholders</span></div></div>
-    <div class="process-step"><div class="step-num">04</div><div class="step-content"><strong>Information architecture</strong><span>Full IA redesign, navigation restructure, search-first approach</span></div></div>
-    <div class="process-step"><div class="step-num">05</div><div class="step-content"><strong>Design</strong><span>Design system, brand design, high-fidelity mockups</span></div></div>
-    <div class="process-step"><div class="step-num">06</div><div class="step-content"><strong>Validation</strong><span>Usability testing, iteration on navigation and content discovery</span></div></div>
-  </div>
 
   <hr class="section-divider" />
 
@@ -198,9 +195,39 @@
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Prev — Mixup
     </a>
-    <span></span>
+    <a href="design-system.html">
+      Next — Design Systems
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
   </div>
 
 </div>
+
+<script>
+  const carousels = {};
+  function initCarousel(id) {
+    const el = document.getElementById(id);
+    const slides = el.querySelectorAll('.carousel-slide');
+    const dotsEl = document.getElementById(id + '-dots');
+    carousels[id] = { current: 0, total: slides.length };
+    slides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.onclick = () => goToSlide(id, i);
+      dotsEl.appendChild(dot);
+    });
+  }
+  function goToSlide(id, index) {
+    const el = document.getElementById(id);
+    const track = el.querySelector('.carousel-track');
+    const c = carousels[id];
+    c.current = (index + c.total) % c.total;
+    track.style.transform = `translateX(-${c.current * 100}%)`;
+    el.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === c.current));
+  }
+  function nextSlide(id) { goToSlide(id, carousels[id].current + 1); }
+  function prevSlide(id) { goToSlide(id, carousels[id].current - 1); }
+  ['c-library'].forEach(initCarousel);
+</script>
 </body>
 </html>

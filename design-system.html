@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design Systems — Momoko Sakamoto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f0f0d; --ink-muted: #6b6b60; --ink-faint: #b8b8ad;
+      --paper: #f7f6f2; --paper-warm: #eeecea; --accent: #c8451a;
+      --accent-light: #f5ede9; --border: #e2e0da;
+      --serif: 'Instrument Serif', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --max: 720px; --nav-h: 64px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--paper); color: var(--ink); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; background: rgba(247,246,242,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--serif); font-size: 18px; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+    .nav-back { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-muted); text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--ink); }
+    .nav-back svg { transition: transform 0.2s; }
+    .nav-back:hover svg { transform: translateX(-3px); }
+
+    .hero { max-width: var(--max); margin: 0 auto; padding: calc(var(--nav-h) + 80px) 40px 64px; }
+    .hero-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    .hero-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--ink-faint); }
+    .hero h1 { font-family: var(--serif); font-size: clamp(36px, 6vw, 64px); line-height: 1.05; letter-spacing: -0.02em; font-weight: 400; margin-bottom: 24px; }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero-desc { font-size: 16px; color: var(--ink-muted); line-height: 1.75; max-width: 560px; margin-bottom: 40px; }
+
+    .meta-row { display: flex; flex-wrap: wrap; gap: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 80px; }
+    .meta-item { padding: 16px 24px 16px 0; margin-right: 24px; border-right: 1px solid var(--border); }
+    .meta-item:last-child { border-right: none; }
+    .meta-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 4px; }
+    .meta-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+    .content { max-width: var(--max); margin: 0 auto; padding: 0 40px 120px; }
+
+    h2 { font-family: var(--serif); font-size: clamp(24px, 3vw, 34px); font-weight: 400; letter-spacing: -0.015em; line-height: 1.15; margin: 64px 0 20px; color: var(--ink); }
+    h2:first-child { margin-top: 0; }
+    h3 { font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); margin: 40px 0 12px; }
+    p { font-size: 15px; color: var(--ink-muted); line-height: 1.85; margin-bottom: 16px; }
+    p strong { color: var(--ink); font-weight: 500; }
+
+    blockquote { border-left: 2px solid var(--accent); margin: 32px 0; padding: 4px 0 4px 20px; }
+    blockquote p { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--ink); margin: 0; }
+
+    .section-divider { border: none; border-top: 1px solid var(--border); margin: 64px 0; }
+
+    .feature-block { border: 1px solid var(--border); border-radius: 4px; padding: 28px 32px; margin: 24px 0; background: var(--paper-warm); }
+    .feature-block h3 { margin-top: 0; }
+    .feature-block ul { padding-left: 16px; margin-top: 8px; }
+    .feature-block li { font-size: 14px; color: var(--ink-muted); line-height: 1.7; margin-bottom: 4px; }
+    .feature-block li strong { color: var(--ink); }
+
+    /* Chapter nav */
+    .chapter-nav { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 64px; }
+    .chapter-btn { flex: 1; padding: 14px 16px; background: var(--paper); border: none; border-right: 1px solid var(--border); cursor: pointer; font-family: var(--sans); font-size: 12px; font-weight: 500; color: var(--ink-muted); letter-spacing: 0.04em; text-transform: uppercase; transition: background 0.15s, color 0.15s; text-align: center; }
+    .chapter-btn:last-child { border-right: none; }
+    .chapter-btn:hover { background: var(--paper-warm); color: var(--ink); }
+    .chapter-btn.active { background: var(--ink); color: var(--paper); }
+
+    /* Situation cards */
+    .situation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin: 32px 0; }
+    .situation-item { background: var(--paper); padding: 20px; }
+    .situation-tag { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 8px; }
+    .situation-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+    .situation-desc { font-size: 12px; color: var(--ink-muted); line-height: 1.5; }
+
+    /* Phase steps */
+    .phase-step { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--border); }
+    .phase-step:first-child { border-top: 1px solid var(--border); }
+    .phase-num { font-family: var(--serif); font-style: italic; font-size: 13px; color: var(--accent); width: 28px; flex-shrink: 0; padding-top: 2px; }
+    .phase-content strong { font-size: 14px; font-weight: 500; color: var(--ink); display: block; margin-bottom: 4px; }
+    .phase-content p { font-size: 13px; color: var(--ink-muted); margin: 0; line-height: 1.6; }
+
+    .takeaway { padding: 20px 0; border-bottom: 1px solid var(--border); }
+    .takeaway:first-child { border-top: 1px solid var(--border); }
+    .takeaway strong { font-size: 14px; font-weight: 500; color: var(--ink); display: block; margin-bottom: 4px; }
+    .takeaway p { font-size: 13px; color: var(--ink-muted); margin: 0; line-height: 1.6; }
+
+    .nav-case { display: flex; justify-content: space-between; align-items: center; margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--border); }
+    .nav-case a { display: flex; align-items: center; gap: 10px; text-decoration: none; font-size: 13px; color: var(--ink-muted); letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-case a:hover { color: var(--ink); }
+
+    @media (max-width: 700px) {
+      nav { padding: 0 20px; }
+      .hero, .content { padding-left: 20px; padding-right: 20px; }
+      .situation-grid { grid-template-columns: 1fr; }
+      .chapter-nav { flex-direction: column; }
+      .chapter-btn { border-right: none; border-bottom: 1px solid var(--border); }
+      .chapter-btn:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Momoko Sakamoto</a>
+  <a href="index.html" class="nav-back">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    All work
+  </a>
+</nav>
+
+<div class="hero">
+  <p class="hero-label">Case study — 04</p>
+  <h1>Building a shared language<br>across <em>four products.</em></h1>
+  <p class="hero-desc">From a blank page to a live product with debt, from a niche audio tool to a logistics SaaS — three design systems, three different situations, one consistent approach.</p>
+  <div class="meta-row">
+    <div class="meta-item"><div class="meta-label">Products</div><div class="meta-value">Mixup · Puremix · Spacefill</div></div>
+    <div class="meta-item"><div class="meta-label">Stack</div><div class="meta-value">Figma · Tailwind</div></div>
+    <div class="meta-item"><div class="meta-label">Period</div><div class="meta-value">2020 – 2024</div></div>
+    <div class="meta-item"><div class="meta-label">Type</div><div class="meta-value">Design Systems</div></div>
+  </div>
+</div>
+
+<div class="content">
+
+  <h2>Not about components.<br><em>About decisions.</em></h2>
+  <p>A design system case study that lists components and color palettes tells you what was built. This one tries to explain why — and what made each situation different.</p>
+  <p>Across these three products, the starting point was always the same: <strong>shared tokens, clear rules, and components that can be extended without breaking the harmony.</strong> But the path to get there looked completely different each time.</p>
+
+  <div class="situation-grid">
+    <div class="situation-item">
+      <div class="situation-tag">Mixup · 2020</div>
+      <div class="situation-title">Blank page, dev-only team</div>
+      <div class="situation-desc">No designer before me. Introduce the practice, then build the system.</div>
+    </div>
+    <div class="situation-item">
+      <div class="situation-tag">Puremix · 2022</div>
+      <div class="situation-title">Debt too heavy to patch</div>
+      <div class="situation-desc">Rebuild from scratch. First real design/code sync in the product's history.</div>
+    </div>
+    <div class="situation-item">
+      <div class="situation-tag">Spacefill · 2022–2024</div>
+      <div class="situation-title">Live product, abandoned library</div>
+      <div class="situation-desc">Migrate progressively. No big bang, no regression, no service interruption.</div>
+    </div>
+    <div class="situation-item" style="background: var(--accent-light);">
+      <div class="situation-tag" style="color: var(--accent);">The constant</div>
+      <div class="situation-title" style="color: var(--ink);">Tokens first. Always.</div>
+      <div class="situation-desc">Before any component, establish the contract between design and code.</div>
+    </div>
+  </div>
+
+  <hr class="section-divider" />
+
+  <h2>Why Tailwind — and <em>when not to.</em></h2>
+  <p>Mixup and Puremix are niche audio products — dark interfaces, dense interactions, very specific UX patterns that don't exist in standard libraries. <strong>Using MUI or Bootstrap would have meant constantly fighting the system</strong> rather than working with it.</p>
+  <p>For Spacefill, the existing library had been abandoned. Tailwind was the migration target: modern, well-maintained, flexible enough to handle logistics SaaS complexity.</p>
+
+  <blockquote>
+    <p>"The question isn't which library to use. It's whether the library serves the product — or whether the product has to serve the library."</p>
+  </blockquote>
+
+  <hr class="section-divider" />
+
+  <h2>Mixup — Introducing design<br>into a <em>dev-only team.</em></h2>
+  <p>Before my involvement, there was no designer on the team. Developers were building the interface directly in code — no documentation, no shared components, no visual language.</p>
+  <p><strong>The first job wasn't designing components.</strong> It was establishing why a design system mattered and how the team would work with it. Adoption isn't guaranteed when a team has never worked with a designer — you have to show the value quickly, on real features, before the system becomes a habit.</p>
+
+  <h3>Approach</h3>
+  <p>Primitive tokens before anything else — color palette, spacing, typography, radius, shadows. These became the contract between design and code. Once agreed on, every component built on top was automatically consistent.</p>
+  <p>The UI Kit grew alongside the product. Mixup's dark, studio-inspired aesthetic required very custom components — waveform players, version lists, timestamped comment threads. <strong>None of these exist in standard libraries.</strong> Building on Tailwind tokens meant bespoke components stayed coherent with the rest of the system.</p>
+
+  <div class="feature-block">
+    <h3>Impact</h3>
+    <ul>
+      <li>Devs could rely on design documentation for the first time</li>
+      <li>Consistent visual language from day one</li>
+      <li>Same token language between design and code — no more "it's almost the same color"</li>
+      <li>New features built faster as the component library grew</li>
+    </ul>
+  </div>
+
+  <hr class="section-divider" />
+
+  <h2>Puremix — Rebuilding when<br>debt is <em>too heavy to patch.</em></h2>
+  <p>The existing codebase was too fragile to build on — any change risked breaking something else. The technical debt wasn't just cosmetic; it ran deep into the architecture. <strong>Patching would have been slower and riskier than rebuilding.</strong></p>
+  <p>There was no dedicated design system team. Verification happened in pre-prod and post-prod — not in design reviews. In parallel, I recruited student designers: I was onboarding and mentoring them while relying on them for reviews. More eyes on the product, but more time spent aligning on standards.</p>
+  <p>At the time, tooling didn't support native token management. The process was explicit by necessity — tokens documented manually, Tailwind config written to match exactly. That discipline forced better conversations between design and dev than any tool would have.</p>
+
+  <blockquote>
+    <p>"For the first time, what shipped looked like what was designed. Not approximately — exactly."</p>
+  </blockquote>
+
+  <div class="feature-block">
+    <h3>Impact</h3>
+    <ul>
+      <li>First full design/code alignment in the product's history</li>
+      <li>Fewer "that's not what I designed" moments in QA</li>
+      <li>New pages assembled from existing components rather than designed from scratch</li>
+      <li>Student designers trained on real product work</li>
+    </ul>
+  </div>
+
+  <hr class="section-divider" />
+
+  <h2>Spacefill — Migrating without<br><em>breaking production.</em></h2>
+  <p>A live B2B SaaS with active users, running on an abandoned library. The product couldn't stop shipping while we migrated. <strong>This is the hardest design system scenario</strong> — you can't start fresh, you can't leave things as they are.</p>
+
+  <h3>3-phase migration</h3>
+  <div class="phase-step">
+    <div class="phase-num">01</div>
+    <div class="phase-content">
+      <strong>Primitive tokens</strong>
+      <p>Color primitives → semantic tokens, spacing scale, typography. Nothing visible to users yet — but the design/code contract is now in place.</p>
+    </div>
+  </div>
+  <div class="phase-step">
+    <div class="phase-num">02</div>
+    <div class="phase-content">
+      <strong>Base components</strong>
+      <p>Buttons, inputs, badges, tables, modals. Built once on the new token system. Existing components left in place until their page is migrated.</p>
+    </div>
+  </div>
+  <div class="phase-step">
+    <div class="phase-num">03</div>
+    <div class="phase-content">
+      <strong>Page by page migration</strong>
+      <p>Stock page, Order page, Transportation... Each sprint, one page. Every component replaced with the new system. No big bang, no regression.</p>
+    </div>
+  </div>
+
+  <p style="margin-top: 32px;">Spacefill's logistics domain has very specific needs — multi-unit input forms, hierarchical stock tables, order status flows. The system needed clear rules for extension: when to create a new component, how to name it, how to keep harmony with the base system.</p>
+
+  <blockquote>
+    <p>"The goal wasn't to replace everything. It was to make sure that whatever existed — old or new — felt like it belonged to the same product."</p>
+  </blockquote>
+
+  <div class="feature-block">
+    <h3>Impact</h3>
+    <ul>
+      <li>Outdated library fully replaced without service interruption</li>
+      <li>New features built faster on a stable, maintained foundation</li>
+      <li>Visual consistency restored across all pages</li>
+      <li>Domain-specific components documented and reusable</li>
+    </ul>
+  </div>
+
+  <hr class="section-divider" />
+
+  <h2>Takeaways</h2>
+  <div class="takeaway"><strong>A design system is a product for your team.</strong><p>It has users, adoption challenges, and a roadmap. Treating it as a deliverable rather than a living system is the fastest way to end up with an outdated library nobody uses.</p></div>
+  <div class="takeaway"><strong>Tokens first, always.</strong><p>Whether starting from scratch or migrating, the token layer comes before any component. It's the cheapest thing to get right early — and the most expensive to fix later.</p></div>
+  <div class="takeaway"><strong>Introducing design into a dev-only team is its own challenge.</strong><p>Adoption isn't guaranteed. You have to demonstrate value on real features before the system becomes a habit.</p></div>
+  <div class="takeaway"><strong>Tooling matters less than discipline.</strong><p>We built coherent systems before native token support existed in design tools. The manual process forced better conversations — conversations that better tooling can accelerate but not replace.</p></div>
+  <div class="takeaway"><strong>Extension rules are as important as the components.</strong><p>Any system will face edge cases. The question isn't whether you'll need custom components — it's whether you have clear rules for creating them without breaking the harmony.</p></div>
+
+  <div class="nav-case">
+    <a href="puremix.html">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Prev — Puremix
+    </a>
+    <span></span>
+  </div>
+
+</div>
+</body>
+</html>
