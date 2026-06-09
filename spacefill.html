@@ -302,6 +302,7 @@
   const carousels = {};
   function initCarousel(id) {
     const el = document.getElementById(id);
+    if (!el) return;
     const slides = el.querySelectorAll('.carousel-slide');
     const dotsEl = document.getElementById(id + '-dots');
     carousels[id] = { current: 0, total: slides.length };
