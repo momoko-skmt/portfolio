@@ -89,6 +89,21 @@
     .nav-case a { display: flex; align-items: center; gap: 10px; text-decoration: none; font-size: 13px; color: var(--ink-muted); letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
     .nav-case a:hover { color: var(--ink); }
 
+    /* Carousel */
+    .carousel { position: relative; margin: 32px 0; border-radius: 4px; overflow: hidden; background: var(--paper-warm); border: 1px solid var(--border); }
+    .carousel-track { display: flex; transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); }
+    .carousel-slide { min-width: 100%; }
+    .carousel-slide img { width: 100%; height: auto; display: block; max-height: 480px; object-fit: contain; background: var(--paper-warm); padding: 8px; }
+    .carousel-controls { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-top: 1px solid var(--border); }
+    .carousel-dots { display: flex; gap: 6px; }
+    .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); border: none; cursor: pointer; padding: 0; transition: background 0.2s; }
+    .carousel-dot.active { background: var(--ink); }
+    .carousel-arrows { display: flex; gap: 4px; }
+    .carousel-btn { width: 32px; height: 32px; border-radius: 2px; border: 1px solid var(--border); background: var(--paper); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s, border-color 0.15s; color: var(--ink-muted); }
+    .carousel-btn:hover { background: var(--paper-warm); border-color: var(--ink-faint); color: var(--ink); }
+    .carousel-btn:disabled { opacity: 0.3; cursor: default; }
+    .carousel-caption { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); }
+
     @media (max-width: 700px) {
       nav { padding: 0 20px; }
       .hero, .content { padding-left: 20px; padding-right: 20px; }
@@ -159,6 +174,30 @@
   <p>Primitive tokens before anything else — color palette, spacing, typography, radius, shadows. These became the contract between design and code. Once agreed on, every component built on top was automatically consistent.</p>
   <p>The UI Kit grew alongside the product. Mixup's dark, studio-inspired aesthetic required very custom components — waveform players, version lists, timestamped comment threads. <strong>None of these exist in standard libraries.</strong> Building on Tailwind tokens meant bespoke components stayed coherent with the rest of the system.</p>
 
+  <div class="carousel" id="carousel-mixup">
+    <div class="carousel-track" id="track-mixup">
+      <div class="carousel-slide"><img src="images/ds-mixup-1.jpg" alt="Mixup DS — Button components with spacing specs" /></div>
+      <div class="carousel-slide"><img src="images/ds-mixup-2.jpg" alt="Mixup DS — Input fields, checkboxes, toggles" /></div>
+      <div class="carousel-slide"><img src="images/ds-mixup-3.jpg" alt="Mixup DS — Iconography" /></div>
+    </div>
+    <div class="carousel-controls">
+      <span class="carousel-caption" id="caption-mixup">Buttons &amp; states</span>
+      <div class="carousel-dots" id="dots-mixup">
+        <button class="carousel-dot active" onclick="goTo('mixup',0)"></button>
+        <button class="carousel-dot" onclick="goTo('mixup',1)"></button>
+        <button class="carousel-dot" onclick="goTo('mixup',2)"></button>
+      </div>
+      <div class="carousel-arrows">
+        <button class="carousel-btn" id="prev-mixup" onclick="move('mixup',-1)" disabled>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M8.5 2.5L4.5 7L8.5 11.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="carousel-btn" id="next-mixup" onclick="move('mixup',1)">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5.5 2.5L9.5 7L5.5 11.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <div class="feature-block">
     <h3>Impact</h3>
     <ul>
@@ -179,6 +218,30 @@
   <blockquote>
     <p>"For the first time, what shipped looked like what was designed. Not approximately — exactly."</p>
   </blockquote>
+
+  <div class="carousel" id="carousel-puremix">
+    <div class="carousel-track" id="track-puremix">
+      <div class="carousel-slide"><img src="images/ds-puremix-1.jpg" alt="Puremix DS — Typography scale" /></div>
+      <div class="carousel-slide"><img src="images/ds-puremix-2.jpg" alt="Puremix DS — UI components, dropdowns, calendar" /></div>
+      <div class="carousel-slide"><img src="images/ds-puremix-3.jpg" alt="Puremix DS — TextField component Figma" /></div>
+    </div>
+    <div class="carousel-controls">
+      <span class="carousel-caption" id="caption-puremix">Typography scale</span>
+      <div class="carousel-dots" id="dots-puremix">
+        <button class="carousel-dot active" onclick="goTo('puremix',0)"></button>
+        <button class="carousel-dot" onclick="goTo('puremix',1)"></button>
+        <button class="carousel-dot" onclick="goTo('puremix',2)"></button>
+      </div>
+      <div class="carousel-arrows">
+        <button class="carousel-btn" id="prev-puremix" onclick="move('puremix',-1)" disabled>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M8.5 2.5L4.5 7L8.5 11.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="carousel-btn" id="next-puremix" onclick="move('puremix',1)">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5.5 2.5L9.5 7L5.5 11.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <div class="feature-block">
     <h3>Impact</h3>
@@ -224,6 +287,30 @@
     <p>"The goal wasn't to replace everything. It was to make sure that whatever existed — old or new — felt like it belonged to the same product."</p>
   </blockquote>
 
+  <div class="carousel" id="carousel-spacefill">
+    <div class="carousel-track" id="track-spacefill">
+      <div class="carousel-slide"><img src="images/puremix-1.jpg" alt="Spacefill DS — Max-width breakpoints" /></div>
+      <div class="carousel-slide"><img src="images/puremix-2.jpg" alt="Spacefill DS — Button variants dark mode" /></div>
+      <div class="carousel-slide"><img src="images/puremix-3.jpg" alt="Spacefill DS — Video page spacing annotations" /></div>
+    </div>
+    <div class="carousel-controls">
+      <span class="carousel-caption" id="caption-spacefill">Breakpoint system</span>
+      <div class="carousel-dots" id="dots-spacefill">
+        <button class="carousel-dot active" onclick="goTo('spacefill',0)"></button>
+        <button class="carousel-dot" onclick="goTo('spacefill',1)"></button>
+        <button class="carousel-dot" onclick="goTo('spacefill',2)"></button>
+      </div>
+      <div class="carousel-arrows">
+        <button class="carousel-btn" id="prev-spacefill" onclick="move('spacefill',-1)" disabled>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M8.5 2.5L4.5 7L8.5 11.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="carousel-btn" id="next-spacefill" onclick="move('spacefill',1)">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5.5 2.5L9.5 7L5.5 11.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <div class="feature-block">
     <h3>Impact</h3>
     <ul>
@@ -252,5 +339,42 @@
   </div>
 
 </div>
+
+<script>
+  const carousels = {
+    mixup: {
+      index: 0, total: 3,
+      captions: ['Buttons & states', 'Inputs, checkboxes & toggles', 'Iconography']
+    },
+    puremix: {
+      index: 0, total: 3,
+      captions: ['Typography scale', 'UI components & dropdowns', 'TextField — Figma component']
+    },
+    spacefill: {
+      index: 0, total: 3,
+      captions: ['Breakpoint system', 'Button variants — dark mode', 'Spacing annotations']
+    }
+  };
+
+  function update(id) {
+    const c = carousels[id];
+    document.getElementById('track-' + id).style.transform = 'translateX(-' + (c.index * 100) + '%)';
+    document.getElementById('caption-' + id).textContent = c.captions[c.index];
+    document.querySelectorAll('#dots-' + id + ' .carousel-dot').forEach((d, i) => d.classList.toggle('active', i === c.index));
+    document.getElementById('prev-' + id).disabled = c.index === 0;
+    document.getElementById('next-' + id).disabled = c.index === c.total - 1;
+  }
+
+  function move(id, dir) {
+    const c = carousels[id];
+    c.index = Math.max(0, Math.min(c.total - 1, c.index + dir));
+    update(id);
+  }
+
+  function goTo(id, i) {
+    carousels[id].index = i;
+    update(id);
+  }
+</script>
 </body>
 </html>
