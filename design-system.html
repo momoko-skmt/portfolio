@@ -47,11 +47,13 @@
     h3 { font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); margin: 40px 0 12px; }
     p { font-size: 15px; color: var(--ink-muted); line-height: 1.85; margin-bottom: 16px; }
     p strong { color: var(--ink); font-weight: 500; }
+    p:last-child { margin-bottom: 0; }
 
-    blockquote { border-left: 2px solid var(--accent); margin: 32px 0; padding: 4px 0 4px 20px; }
-    blockquote p { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--ink); margin: 0; }
+    blockquote { border-left: 2px solid var(--accent); margin: 40px 0; padding: 4px 0 4px 20px; }
+    blockquote p { font-family: var(--serif); font-style: italic; font-size: 18px; line-height: 1.5; color: var(--ink); margin: 0; }
+    blockquote cite { display: block; margin-top: 10px; font-size: 12px; font-style: normal; color: var(--ink-faint); letter-spacing: 0.06em; text-transform: uppercase; }
 
-    .section-divider { border: none; border-top: 1px solid var(--border); margin: 64px 0; }
+    .section-divider { border: none; border-top: 1px solid var(--border); margin: 72px 0; }
 
     .feature-block { border: 1px solid var(--border); border-radius: 4px; padding: 28px 32px; margin: 24px 0; background: var(--paper-warm); }
     .feature-block h3 { margin-top: 0; }
@@ -59,19 +61,22 @@
     .feature-block li { font-size: 14px; color: var(--ink-muted); line-height: 1.7; margin-bottom: 4px; }
     .feature-block li strong { color: var(--ink); }
 
-    /* Chapter nav */
-    .chapter-nav { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 64px; }
-    .chapter-btn { flex: 1; padding: 14px 16px; background: var(--paper); border: none; border-right: 1px solid var(--border); cursor: pointer; font-family: var(--sans); font-size: 12px; font-weight: 500; color: var(--ink-muted); letter-spacing: 0.04em; text-transform: uppercase; transition: background 0.15s, color 0.15s; text-align: center; }
-    .chapter-btn:last-child { border-right: none; }
-    .chapter-btn:hover { background: var(--paper-warm); color: var(--ink); }
-    .chapter-btn.active { background: var(--ink); color: var(--paper); }
-
-    /* Situation cards */
+    /* Situation grid */
     .situation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin: 32px 0; }
-    .situation-item { background: var(--paper); padding: 20px; }
+    .situation-item { background: var(--paper); padding: 22px; }
     .situation-tag { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 8px; }
-    .situation-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
-    .situation-desc { font-size: 12px; color: var(--ink-muted); line-height: 1.5; }
+    .situation-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+    .situation-desc { font-size: 12px; color: var(--ink-muted); line-height: 1.6; }
+
+    /* Token diagram */
+    .token-diagram { display: flex; align-items: stretch; gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin: 32px 0; }
+    .token-col { flex: 1; padding: 20px; border-right: 1px solid var(--border); }
+    .token-col:last-child { border-right: none; }
+    .token-col-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 12px; }
+    .token-pill { display: inline-block; font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 2px; margin: 2px 2px 2px 0; background: var(--paper-warm); color: var(--ink-muted); border: 1px solid var(--border); }
+    .token-pill.semantic { background: var(--accent-light); color: var(--accent); border-color: transparent; }
+    .token-pill.component { background: var(--ink); color: var(--paper); border-color: transparent; }
+    .token-arrow { display: flex; align-items: center; justify-content: center; padding: 0 4px; color: var(--ink-faint); font-size: 18px; flex-shrink: 0; }
 
     /* Phase steps */
     .phase-step { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--border); }
@@ -79,6 +84,28 @@
     .phase-num { font-family: var(--serif); font-style: italic; font-size: 13px; color: var(--accent); width: 28px; flex-shrink: 0; padding-top: 2px; }
     .phase-content strong { font-size: 14px; font-weight: 500; color: var(--ink); display: block; margin-bottom: 4px; }
     .phase-content p { font-size: 13px; color: var(--ink-muted); margin: 0; line-height: 1.6; }
+
+    /* Stat row */
+    .stat-row { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin: 32px 0; }
+    .stat-item { flex: 1; padding: 22px 20px; border-right: 1px solid var(--border); text-align: center; }
+    .stat-item:last-child { border-right: none; }
+    .stat-value { font-family: var(--serif); font-size: 32px; color: var(--ink); line-height: 1; margin-bottom: 6px; }
+    .stat-value em { font-style: italic; color: var(--accent); }
+    .stat-label { font-size: 11px; color: var(--ink-faint); letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.4; }
+
+    /* Challenge / response pair */
+    .cr-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin: 24px 0; }
+    .cr-cell { background: var(--paper); padding: 20px; }
+    .cr-cell.response { background: var(--paper-warm); }
+    .cr-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 8px; }
+    .cr-text { font-size: 13px; color: var(--ink-muted); line-height: 1.65; }
+    .cr-text strong { color: var(--ink); }
+
+    /* Impact block */
+    .impact-block { border-left: 2px solid var(--border); padding-left: 20px; margin: 32px 0; display: flex; flex-direction: column; gap: 16px; }
+    .impact-item { display: flex; flex-direction: column; gap: 2px; }
+    .impact-item strong { font-size: 13px; font-weight: 500; color: var(--ink); }
+    .impact-item span { font-size: 13px; color: var(--ink-muted); line-height: 1.6; }
 
     .takeaway { padding: 20px 0; border-bottom: 1px solid var(--border); }
     .takeaway:first-child { border-top: 1px solid var(--border); }
@@ -90,10 +117,10 @@
     .nav-case a:hover { color: var(--ink); }
 
     /* Carousel */
-    .carousel { position: relative; margin: 32px 0; border-radius: 4px; overflow: hidden; background: var(--paper-warm); border: 1px solid var(--border); }
+    .carousel { position: relative; margin: 40px 0; border-radius: 4px; overflow: hidden; background: var(--paper-warm); border: 1px solid var(--border); }
     .carousel-track { display: flex; transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); }
     .carousel-slide { min-width: 100%; }
-    .carousel-slide img { width: 100%; height: auto; display: block; max-height: 480px; object-fit: contain; background: var(--paper-warm); padding: 8px; }
+    .carousel-slide img { width: 100%; height: auto; display: block; max-height: 500px; object-fit: contain; background: var(--paper-warm); padding: 12px; }
     .carousel-controls { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-top: 1px solid var(--border); }
     .carousel-dots { display: flex; gap: 6px; }
     .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); border: none; cursor: pointer; padding: 0; transition: background 0.2s; }
@@ -104,13 +131,32 @@
     .carousel-btn:disabled { opacity: 0.3; cursor: default; }
     .carousel-caption { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); }
 
+    /* Collab section */
+    .collab-block { margin: 40px 0; display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+    .collab-row { display: grid; grid-template-columns: 200px 1fr; gap: 0; border-bottom: 1px solid var(--border); }
+    .collab-row:last-child { border-bottom: none; }
+    .collab-practice { padding: 20px 24px; background: var(--paper-warm); border-right: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; }
+    .collab-practice-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 5px; }
+    .collab-practice-name { font-size: 13px; font-weight: 500; color: var(--ink); }
+    .collab-detail { padding: 20px 24px; }
+    .collab-detail p { font-size: 13px; color: var(--ink-muted); line-height: 1.65; margin: 0; }
+    .collab-detail p strong { color: var(--ink); }
+
     @media (max-width: 700px) {
+      .collab-row { grid-template-columns: 1fr; }
+      .collab-practice { border-right: none; border-bottom: 1px solid var(--border); }
+    
       nav { padding: 0 20px; }
       .hero, .content { padding-left: 20px; padding-right: 20px; }
       .situation-grid { grid-template-columns: 1fr; }
-      .chapter-nav { flex-direction: column; }
-      .chapter-btn { border-right: none; border-bottom: 1px solid var(--border); }
-      .chapter-btn:last-child { border-bottom: none; }
+      .stat-row { flex-direction: column; }
+      .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat-item:last-child { border-bottom: none; }
+      .cr-pair { grid-template-columns: 1fr; }
+      .token-diagram { flex-direction: column; }
+      .token-col { border-right: none; border-bottom: 1px solid var(--border); }
+      .token-col:last-child { border-bottom: none; }
+      .token-arrow { display: none; }
     }
   </style>
 </head>
@@ -126,53 +172,126 @@
 
 <div class="hero">
   <p class="hero-label">Case study — 04</p>
-  <h1>Building a shared language<br>across <em>3 products.</em></h1>
-  <p class="hero-desc">From a blank page to a live product with debt, from a niche audio tool to a logistics SaaS — three design systems, three different situations, one consistent approach.</p>
+  <h1>Three design systems,<br><em>three different problems.</em></h1>
+  <p class="hero-desc">A blank page with a dev-only team. A codebase too fragile to patch. A live product that couldn't stop shipping. Same discipline across all three — tokens first, components second, adoption always.</p>
   <div class="meta-row">
     <div class="meta-item"><div class="meta-label">Products</div><div class="meta-value">Mixup · Puremix · Spacefill</div></div>
     <div class="meta-item"><div class="meta-label">Stack</div><div class="meta-value">Figma · Tailwind</div></div>
     <div class="meta-item"><div class="meta-label">Period</div><div class="meta-value">2020 – 2024</div></div>
-    <div class="meta-item"><div class="meta-label">Type</div><div class="meta-value">Design Systems</div></div>
+    <div class="meta-item"><div class="meta-label">Role</div><div class="meta-value">Solo designer</div></div>
   </div>
 </div>
 
 <div class="content">
 
   <h2>Same starting point,<br><em>different every time.</em></h2>
-  <p>Across these three products, the starting point was always the same: <strong>shared tokens, clear rules, and components that can be extended without breaking the harmony.</strong> But the path to get there looked completely different each time.</p>
+  <p>Design systems don't fail because of bad components. They fail because of bad fit — the wrong approach for the wrong context. Each of these three situations demanded a different entry point, different pace, different political strategy.</p>
 
   <div class="situation-grid">
     <div class="situation-item">
       <div class="situation-tag">Mixup · 2020</div>
       <div class="situation-title">Blank page, dev-only team</div>
-      <div class="situation-desc">No designer before me. Introduce the practice, then build the system.</div>
+      <div class="situation-desc">No designer before me. The first challenge wasn't the system — it was convincing the team the system was worth building.</div>
     </div>
     <div class="situation-item">
       <div class="situation-tag">Puremix · 2022</div>
       <div class="situation-title">Debt too heavy to patch</div>
-      <div class="situation-desc">Rebuild from scratch. First real design/code sync in the product's history.</div>
+      <div class="situation-desc">The codebase was too fragile to build on. Any fix risked cascading breakage. Rebuilding was safer than patching.</div>
     </div>
     <div class="situation-item">
       <div class="situation-tag">Spacefill · 2022–2024</div>
       <div class="situation-title">Live product, abandoned library</div>
-      <div class="situation-desc">Migrate progressively. No big bang, no regression, no service interruption.</div>
+      <div class="situation-desc">Active users, active development, no design foundation. The product couldn't stop shipping while we migrated.</div>
     </div>
     <div class="situation-item" style="background: var(--accent-light);">
       <div class="situation-tag" style="color: var(--accent);">The constant</div>
-      <div class="situation-title" style="color: var(--ink);">Tokens first. Always.</div>
-      <div class="situation-desc">Before any component, establish the contract between design and code.</div>
+      <div class="situation-title">Tokens before components. Always.</div>
+      <div class="situation-desc">The token layer is the cheapest thing to get right early and the most expensive to fix later.</div>
+    </div>
+  </div>
+
+  <p>The token layer is what all three systems have in common. Not the color values themselves — those changed completely across products — but the discipline of naming, agreeing, and documenting them <em>before</em> touching a single component.</p>
+
+  <div class="token-diagram">
+    <div class="token-col">
+      <div class="token-col-label">Primitives</div>
+      <span class="token-pill">blue-500</span>
+      <span class="token-pill">gray-800</span>
+      <span class="token-pill">space-4</span>
+      <span class="token-pill">radius-sm</span>
+    </div>
+    <div class="token-arrow">→</div>
+    <div class="token-col">
+      <div class="token-col-label">Semantic</div>
+      <span class="token-pill semantic">color-action</span>
+      <span class="token-pill semantic">color-text</span>
+      <span class="token-pill semantic">space-component</span>
+      <span class="token-pill semantic">radius-button</span>
+    </div>
+    <div class="token-arrow">→</div>
+    <div class="token-col">
+      <div class="token-col-label">Component</div>
+      <span class="token-pill component">btn-bg</span>
+      <span class="token-pill component">btn-radius</span>
+      <span class="token-pill component">input-border</span>
+      <span class="token-pill component">label-color</span>
     </div>
   </div>
 
   <hr class="section-divider" />
 
-  <h2>Mixup — Introducing design<br>into a <em>dev-only team.</em></h2>
-  <p>Before my involvement, there was no designer on the team. Developers were building the interface directly in code — no documentation, no shared components, no visual language.</p>
-  <p><strong>The first job wasn't designing components.</strong> It was establishing why a design system mattered and how the team would work with it. Adoption isn't guaranteed when a team has never worked with a designer — you have to show the value quickly, on real features, before the system becomes a habit.</p>
+  <h2>Collaboration with dev<br>as the <em>starting point.</em></h2>
+  <p>The systems worked because the developers were involved from the beginning — not consulted after the fact. Across all three products, the design/dev relationship followed the same three practices, adapted to each context.</p>
 
-  <h3>Approach</h3>
-  <p>Primitive tokens before anything else — color palette, spacing, typography, radius, shadows. These became the contract between design and code. Once agreed on, every component built on top was automatically consistent.</p>
-  <p>The UI Kit grew alongside the product. Mixup's dark, studio-inspired aesthetic required very custom components — waveform players, version lists, timestamped comment threads. <strong>None of these exist in standard libraries.</strong> Building on Tailwind tokens meant bespoke components stayed coherent with the rest of the system.</p>
+  <div class="collab-block">
+    <div class="collab-row">
+      <div class="collab-practice">
+        <div class="collab-practice-label">Practice 01</div>
+        <div class="collab-practice-name">Token naming sessions</div>
+      </div>
+      <div class="collab-detail">
+        <p>Before any component was touched, I sat with the lead developer to agree on token names. Not design names, not engineering names — <strong>shared names</strong> that would mean the same thing in Figma and in the Tailwind config. This single session prevented weeks of "which blue is that?" conversations downstream.</p>
+      </div>
+    </div>
+    <div class="collab-row">
+      <div class="collab-practice">
+        <div class="collab-practice-label">Practice 02</div>
+        <div class="collab-practice-name">Regular design + dev reviews</div>
+      </div>
+      <div class="collab-detail">
+        <p>Weekly or bi-weekly sessions where a developer and I would go through components in progress — not for sign-off, but for <strong>early friction detection</strong>. The goal was balance: making sure a component was actually usable before it reached production, not theoretically perfect on a Figma canvas. Catching an implementation problem at design stage costs a conversation. Catching it in QA costs a sprint.</p>
+      </div>
+    </div>
+    <div class="collab-row">
+      <div class="collab-practice">
+        <div class="collab-practice-label">Practice 03</div>
+        <div class="collab-practice-name">Figma → Dev handoff</div>
+      </div>
+      <div class="collab-detail">
+        <p>Every token defined in Figma had a direct counterpart in the Tailwind config — same name, same value, same hierarchy. <strong>The design file and the codebase described the same system.</strong> No translation layer, no "close enough." When a component referenced <code style="font-size:12px; background:var(--paper-warm); padding:2px 5px; border-radius:2px; color:var(--ink);">color-action</code>, both sides knew exactly what that meant.</p>
+      </div>
+    </div>
+  </div>
+
+  <p>This wasn't a process imposed on the dev team. It was built with them. The token naming sessions in particular created a sense of shared ownership — the system wasn't something handed over for implementation, it was something we'd both agreed to.</p>
+
+  <hr class="section-divider" />
+
+  <h2>Mixup — Building a system<br>where <em>none existed.</em></h2>
+  <p>Mixup was my first design system. The developers were competent and fast — they'd shipped a working product without a designer. That was the problem: they didn't feel the absence of a design system because they'd never had one.</p>
+  <p><strong>The first job wasn't designing components. It was earning the right to introduce process</strong> into a team that had built a product without it. I started on real features — not a design system backlog — so the value was visible within the first sprint.</p>
+
+  <h3>The challenge</h3>
+  <div class="cr-pair">
+    <div class="cr-cell">
+      <div class="cr-label">Situation</div>
+      <div class="cr-text">Mixup is a studio-grade audio tool. The aesthetic was specific and opinionated. Everything had to be built from scratch — waveform players, version timelines, timestamped comment threads.</div>
+    </div>
+    <div class="cr-cell response">
+      <div class="cr-label">Response</div>
+      <div class="cr-text">Tokens first — dark color scale, spacing, typography. Once agreed on, every custom component used the same values: same spacing, same radius, same color logic — whether it was a button or a waveform player.</div>
+    </div>
+  </div>
 
   <div class="carousel" id="carousel-mixup">
     <div class="carousel-track" id="track-mixup">
@@ -181,7 +300,7 @@
       <div class="carousel-slide"><img src="images/ds-mixup-3.jpg" alt="Mixup DS — Iconography" /></div>
     </div>
     <div class="carousel-controls">
-      <span class="carousel-caption" id="caption-mixup">Buttons &amp; states</span>
+      <span class="carousel-caption" id="caption-mixup">Buttons &amp; interaction states</span>
       <div class="carousel-dots" id="dots-mixup">
         <button class="carousel-dot active" onclick="goTo('mixup',0)"></button>
         <button class="carousel-dot" onclick="goTo('mixup',1)"></button>
@@ -199,7 +318,7 @@
   </div>
 
   <div class="feature-block">
-    <h3>Impact</h3>
+    <h3>Outcome</h3>
     <ul>
       <li>Devs could rely on design documentation for the first time</li>
       <li>Consistent visual language from day one</li>
@@ -208,22 +327,36 @@
     </ul>
   </div>
 
+  <h3>What I learned</h3>
+  <div class="takeaway">
+    <strong>Sometimes an icon library is the right call.</strong>
+    <p>Mixup had a very specific visual identity, so I designed the icons myself. I'm proud of that work — being the first designer on the team meant owning everything, and the result was coherent. But looking back, a solid icon library would have freed up significant time to focus on harder product problems. Custom iconography is a real cost; it's worth asking whether it's the right one.</p>
+  </div>
+  <div class="takeaway">
+    <strong>Platform constraints are design constraints.</strong>
+    <p>Designing across iOS, Windows, web app, mobile, and audio plugins forced me to understand what "consistent" actually means when the rendering environment changes completely. QA sessions across platforms were some of the most valuable design education I've had.</p>
+  </div>
+
   <hr class="section-divider" />
 
-  <h2>Puremix — Rebuilding when<br>debt is <em>too heavy to patch.</em></h2>
-  <p>The existing codebase was too fragile to build on — any change risked breaking something else. The technical debt wasn't just cosmetic; it ran deep into the architecture. <strong>Patching would have been slower and riskier than rebuilding.</strong></p>
-  <p>There was no dedicated design system team. Verification happened in pre-prod and post-prod — not in design reviews. In parallel, I recruited student designers: I was onboarding and mentoring them while relying on them for reviews. More eyes on the product, but more time spent aligning on standards.</p>
+  <h2>Puremix — Rebuilding when<br><em>patching is too slow.</em></h2>
+  <p>Puremix is a large audio education platform — video courses, instructor profiles, subscription tiers. The codebase had accumulated years of inconsistency: styles duplicated across pages, components with the same name but different behavior, spacing that varied by a few pixels with no reason.</p>
+  <p><strong>The debt wasn't cosmetic. It ran through the architecture.</strong> Any change to a shared component created unpredictable side effects. The team had stopped touching certain parts of the codebase entirely. Patching would have been slower and riskier than rebuilding.</p>
+
+  <h3>Working without a safety net</h3>
+  <p>There was no dedicated design system team. Verification happened in pre-prod and post-prod — not in design reviews. I was simultaneously building the system and mentoring student designers who were helping with QA. More coverage, but also more coordination overhead.</p>
   <p>At the time, tooling didn't support native token management. The process was explicit by necessity — tokens documented manually, Tailwind config written to match exactly. That discipline forced better conversations between design and dev than any tool would have.</p>
 
   <blockquote>
     <p>"For the first time, what shipped looked like what was designed. Not approximately — exactly."</p>
+    <cite>— Feedback from dev lead during first QA pass with the new system</cite>
   </blockquote>
 
   <div class="carousel" id="carousel-puremix">
     <div class="carousel-track" id="track-puremix">
       <div class="carousel-slide"><img src="images/ds-puremix-1.jpg" alt="Puremix DS — Typography scale" /></div>
       <div class="carousel-slide"><img src="images/ds-puremix-2.jpg" alt="Puremix DS — UI components, dropdowns, calendar" /></div>
-      <div class="carousel-slide"><img src="images/ds-puremix-3.jpg" alt="Puremix DS — TextField component Figma" /></div>
+      <div class="carousel-slide"><img src="images/ds-puremix-3.jpg" alt="Puremix DS — TextField component in Figma" /></div>
     </div>
     <div class="carousel-controls">
       <span class="carousel-caption" id="caption-puremix">Typography scale</span>
@@ -244,9 +377,9 @@
   </div>
 
   <div class="feature-block">
-    <h3>Impact</h3>
+    <h3>Outcome</h3>
     <ul>
-      <li>First full design/code alignment in the product's history</li>
+      <li>First complete design/code alignment in the product's history</li>
       <li>Fewer "that's not what I designed" moments in QA</li>
       <li>New pages assembled from existing components rather than designed from scratch</li>
       <li>Student designers trained on real product work</li>
@@ -255,43 +388,40 @@
 
   <hr class="section-divider" />
 
-  <h2>Spacefill — Migrating without<br><em>breaking production.</em></h2>
-  <p>A live B2B SaaS with active users, running on an abandoned library. The product couldn't stop shipping while we migrated. <strong>This is the hardest design system scenario</strong> — you can't start fresh, you can't leave things as they are.</p>
+  <h2>Spacefill — Migrating without<br><em>stopping the product.</em></h2>
+  <p>Spacefill is a B2B logistics SaaS — warehouse management, stock tracking, carrier coordination. The product was live, actively developed, and running on a design library that had been abandoned. Components were inconsistent, undocumented, and often reimplemented from scratch by different developers.</p>
+  <p>The hard constraint: <strong>the product couldn't stop shipping.</strong> There was no migration window, no freeze. Every sprint added new features while we were trying to replace the foundation underneath them.</p>
 
-  <h3>phase migration</h3>
+  <h3>3-phase migration</h3>
   <div class="phase-step">
     <div class="phase-num">01</div>
     <div class="phase-content">
-      <strong>Primitive tokens</strong>
-      <p>Color primitives → semantic tokens, spacing scale, typography. Nothing visible to users yet — but the design/code contract is now in place.</p>
+      <strong>Primitive tokens — invisible to users, critical for everything</strong>
+      <p>Color primitives → semantic tokens, spacing scale, typography. Nothing visible to users yet, but the design/code contract was now in place. No component was touched until this layer was agreed on.</p>
     </div>
   </div>
   <div class="phase-step">
     <div class="phase-num">02</div>
     <div class="phase-content">
-      <strong>Base components</strong>
-      <p>Buttons, inputs, badges, tables, modals. Built once on the new token system. Existing components left in place until their page is migrated.</p>
+      <strong>Base components — built once, not replaced yet</strong>
+      <p>Buttons, inputs, badges, tables, modals. All built on the new token system. The old components stayed in production until their page was migrated — no regression risk.</p>
     </div>
   </div>
   <div class="phase-step">
     <div class="phase-num">03</div>
     <div class="phase-content">
-      <strong>Page by page migration</strong>
-      <p>Stock page, Order page, Transportation... Each sprint, one page. Every component replaced with the new system. No big bang, no regression.</p>
+      <strong>Page-by-page migration — one sprint at a time</strong>
+      <p>Stock, Orders, Transportation, Carriers... Each sprint, one page. All components on that page replaced with the new system. No big bang, no feature freeze, no parallel branches.</p>
     </div>
   </div>
 
-  <p style="margin-top: 32px;">Spacefill's logistics domain has very specific needs — multi-unit input forms, hierarchical stock tables, order status flows. The system needed clear rules for extension: when to create a new component, how to name it, how to keep harmony with the base system.</p>
-
-  <blockquote>
-    <p>"The goal wasn't to replace everything. It was to make sure that whatever existed — old or new — felt like it belonged to the same product."</p>
-  </blockquote>
+  <p style="margin-top: 32px;">Spacefill's logistics domain has very specific needs — multi-unit input forms, hierarchical stock tables, address selectors, carrier assignment flows. The system needed clear extension rules: when to create a new component, how to name it, how to keep it coherent with the base layer without forking the design language.</p>
 
   <div class="carousel" id="carousel-spacefill">
     <div class="carousel-track" id="track-spacefill">
-      <div class="carousel-slide"><img src="images/ds-spacefill-1.jpg" alt="Spacefill DS — Max-width breakpoints" /></div>
-      <div class="carousel-slide"><img src="images/ds-spacefill-2.jpg" alt="Spacefill DS — Button variants dark mode" /></div>
-      <div class="carousel-slide"><img src="images/ds-spacefill-3.jpg" alt="Spacefill DS — Video page spacing annotations" /></div>
+      <div class="carousel-slide"><img src="images/puremix-1.jpg" alt="Spacefill DS — Max-width breakpoints" /></div>
+      <div class="carousel-slide"><img src="images/puremix-2.jpg" alt="Spacefill DS — Button variants dark mode" /></div>
+      <div class="carousel-slide"><img src="images/puremix-3.jpg" alt="Spacefill DS — Video page spacing annotations" /></div>
     </div>
     <div class="carousel-controls">
       <span class="carousel-caption" id="caption-spacefill">Breakpoint system</span>
@@ -311,24 +441,36 @@
     </div>
   </div>
 
+  <blockquote>
+    <p>"The goal wasn't to replace everything. It was to make sure that whatever existed — old or new — felt like it belonged to the same product."</p>
+  </blockquote>
+
   <div class="feature-block">
-    <h3>Impact</h3>
+    <h3>Outcome</h3>
     <ul>
       <li>Outdated library fully replaced without service interruption</li>
       <li>New features built faster on a stable, maintained foundation</li>
       <li>Visual consistency restored across all pages</li>
-      <li>Domain-specific components documented and reusable</li>
+      <li>Logistics-specific components documented and reusable across the team</li>
     </ul>
   </div>
 
   <hr class="section-divider" />
 
   <h2>Takeaways</h2>
-  <div class="takeaway"><strong>A design system is a product for your team.</strong><p>It has users, adoption challenges, and a roadmap. Treating it as a deliverable rather than a living system is the fastest way to end up with an outdated library nobody uses.</p></div>
-  <div class="takeaway"><strong>Tokens first, always.</strong><p>Whether starting from scratch or migrating, the token layer comes before any component. It's the cheapest thing to get right early — and the most expensive to fix later.</p></div>
-  <div class="takeaway"><strong>Introducing design into a dev-only team is its own challenge.</strong><p>Adoption isn't guaranteed. You have to demonstrate value on real features before the system becomes a habit.</p></div>
-  <div class="takeaway"><strong>Tooling matters less than discipline.</strong><p>We built coherent systems before native token support existed in design tools. The manual process forced better conversations — conversations that better tooling can accelerate but not replace.</p></div>
-  <div class="takeaway"><strong>Extension rules are as important as the components.</strong><p>Any system will face edge cases. The question isn't whether you'll need custom components — it's whether you have clear rules for creating them without breaking the harmony.</p></div>
+
+  <div class="takeaway">
+    <strong>Context determines the entry point.</strong>
+    <p>A blank page, a fragile codebase, and a live product require completely different strategies. The discipline is the same. The approach can't be.</p>
+  </div>
+  <div class="takeaway">
+    <strong>Tokens before components. Always.</strong>
+    <p>The token layer is the cheapest thing to get right early and the most expensive to fix late. Every component you build before agreeing on tokens is a component you'll eventually rebuild.</p>
+  </div>
+  <div class="takeaway">
+    <strong>A design system is only as good as its adoption.</strong>
+    <p>Components don't ship themselves. Proving value on real features, involving developers from the start, and building extension rules alongside the base system — that's what makes a system last.</p>
+  </div>
 
   <div class="nav-case">
     <a href="puremix.html">
@@ -344,7 +486,7 @@
   const carousels = {
     mixup: {
       index: 0, total: 3,
-      captions: ['Buttons & states', 'Inputs, checkboxes & toggles', 'Iconography']
+      captions: ['Buttons & interaction states', 'Inputs, checkboxes & toggles', 'Iconography']
     },
     puremix: {
       index: 0, total: 3,
