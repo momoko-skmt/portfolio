@@ -150,8 +150,8 @@
 
 <div class="hero">
   <p class="hero-label">Case study — 01</p>
-  <h1>Redesigning a B2B SaaS<br>logistics platform <em>from within.</em></h1>
-  <p class="hero-desc">As the sole product designer at Spacefill, I redesigned three core product areas — inventory, order workflow, and transportation — to support a pivot from marketplace to full SaaS operations platform.</p>
+  <h1>From warehouse tool<br>to <em>B2B SaaS</em> logistics platform.</h1>
+  <p class="hero-desc">As the sole product designer at Spacefill, I redesigned three core product areas — order workflow, inventory, and incident management — to support a pivot from marketplace to full SaaS operations platform.</p>
   <div class="meta-row">
     <div class="meta-item"><div class="meta-label">Company</div><div class="meta-value">Spacefill</div></div>
     <div class="meta-item"><div class="meta-label">Role</div><div class="meta-value">Solo Product Designer</div></div>
@@ -181,6 +181,19 @@
     <div class="case-img-caption">Control Tower — visibility, orders, connectivity</div>
   </div>
 
+  <hr class="section-divider" />
+
+  <h2>Research</h2>
+  <p>Before designing anything, I ran <strong>8 user interviews</strong> across key accounts: Ikea, Leroy Merlin, Sézane, Arkolia, FEFE, Linxens, IES, and Transport Dupas Lebeda.</p>
+  <h3>Key findings</h3>
+  <div class="feature-block">
+    <ul>
+      <li>Pickup date logic was confusing when LSPs managed transport — only the delivery date matters to shippers</li>
+      <li>Users couldn't identify what information was shared with their LSP</li>
+      <li>Multi-unit stock (pallets, boxes, units) created constant calculation errors</li>
+    </ul>
+  </div>
+
   <blockquote>
     <p>"I see the order status, but I don't know what it means or it doesn't match reality."</p>
     <cite>— User interview, Watershop</cite>
@@ -193,21 +206,47 @@
 
   <hr class="section-divider" />
 
-  <h2>Research</h2>
-  <p>Before designing anything, I ran <strong>8 user interviews</strong> across key accounts: Ikea, Leroy Merlin, Sézane, Arkolia, FEFE, Linxens, IES, and Transport Dupas Lebeda.</p>
-  <h3>Key findings</h3>
+  <h2>Feature 1 — Order Workflow Redesign</h2>
+  <p class="hero-label" style="margin:0 0 16px; font-size:10px;">Pillar: 🤝 Collaboration on orders</p>
+
+  <h3>Problem</h3>
+  <p>The order creation flow was rigid and time-consuming — <strong>48 minutes average</strong> for some users. But the first signal came from the CSM team, who were handling a constant stream of last-minute modification requests: wrong times, missing references, date changes inside notice periods.</p>
+  <p>Digging deeper through <strong>screen recordings and user interviews</strong> revealed the root cause: shippers were being asked to enter pickup and delivery dates — but scheduling is the LSP's responsibility when they handle transport. Shippers have one priority: their customer receives the order on time. The form had been built around the wrong mental model entirely.</p>
+  <p>A second problem surfaced around references: shippers were copy-pasting quantities from their own ERP, but unit types didn't match. Because of WMS integration constraints, Spacefill was dependent on the logistics provider's system — while shippers ordered in "boxes", the platform required "eaches". Every order required manual unit translation, and mistakes were routine.</p>
+
+  <h3>Solution — 3 core principles</h3>
+  <div class="pill-row">
+    <span class="pill"><strong>Permissive</strong> — remove blockers</span>
+    <span class="pill"><strong>Omniscient</strong> — flag everything unusual</span>
+    <span class="pill"><strong>Modular</strong> — adapt per contract</span>
+  </div>
   <div class="feature-block">
     <ul>
-      <li>Pickup date logic was confusing when LSPs managed transport — only the delivery date matters to shippers</li>
-      <li>Users couldn't identify what information was shared with their LSP</li>
-      <li>Stock adjustment was done blind — no visibility on the impact of changes before confirming</li>
-      <li>Multi-unit stock (pallets, boxes, units) created constant calculation errors</li>
+      <li><strong>Date logic split:</strong> when LSP handles transport → only delivery date required. Pickup date removed from the shipper's flow entirely</li>
+      <li><strong>Flexible notice period</strong> configuration per contract, with bypass allowed if order preparation hasn't started</li>
+      <li><strong>Comment space per order</strong> to keep all information inside the platform — last-minute modifications, questions, and updates stay traceable</li>
+      <li><strong>Inline reference creation</strong> during order flow — no more tab-switching to add a missing reference mid-order</li>
     </ul>
+  </div>
+
+  <div class="carousel" id="c-orders">
+    <div class="carousel-track">
+      <div class="carousel-slide"><img src="images/spacefill-orders-general-start.jpg" alt="Orders list" /><div class="carousel-caption">Orders list — status, type, late orders and open incidents</div></div>
+      <div class="carousel-slide"><img src="images/spacefill-create-order-top.jpg" alt="New exit order — top" /><div class="carousel-caption">New exit — carrier, pickup, delivery date and custom fields</div></div>
+      <div class="carousel-slide"><img src="images/spacefill-create-order-bottom.jpg" alt="New exit order — references" /><div class="carousel-caption">References — browse inventory, input quantity per unit type, import</div></div>
+      <div class="carousel-slide"><img src="images/spacefill-order-view.jpg" alt="Order view" /><div class="carousel-caption">Order view — references, batches, completion rate and warnings</div></div>
+      <div class="carousel-slide"><img src="images/spacefill-order-page-activity.jpg" alt="Order activity" /><div class="carousel-caption">Activity — conversation thread between shipper and LSP</div></div>
+    </div>
+    <div class="carousel-controls">
+      <button class="carousel-btn" onclick="prevSlide('c-orders')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="carousel-dots" id="c-orders-dots"></div>
+      <button class="carousel-btn" onclick="nextSlide('c-orders')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2L10 7L5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
   </div>
 
   <hr class="section-divider" />
 
-  <h2>Feature 1 — Inventory & Stock Architecture</h2>
+  <h2>Feature 2 — Inventory & Stock Architecture</h2>
   <p class="hero-label" style="margin:0 0 16px; font-size:10px;">Pillar: 🗂 Inventory visibility</p>
 
   <h3>Problem</h3>
@@ -231,8 +270,6 @@
       <li>Inputs disabled if no batch is selected (preventing orphan adjustments)</li>
     </ul>
   </div>
-  <p><em>Example: Enter 2 pallets + 142 each. Previous stock: 1 pallet + 10 each (110 each). System calculates: 342 − 110 = +232 each — shown instantly.</em></p>
-
   <div class="case-img">
     <img src="images/spacefill-stock-situation.jpeg" alt="Stock situation page" />
     <div class="case-img-caption">Stock situation — hierarchical table with batch-level rows and KPI summary</div>
@@ -242,78 +279,64 @@
     <img src="images/spacefill-inventory-adjustment.jpg" alt="Inventory adjustment" />
     <div class="case-img-caption">Inventory adjustment — multi-unit inputs with real-time variation (+232, +10, -24)</div>
   </div>
+  <p style="color:var(--ink-muted);line-height:1.75;margin-top:10px;"><em>Example:<br>Enter 2 pallets + 142 each.<br>Previous stock was 1 pallet + 10 each, so equal to 110 each.<br>System calculates: 342 − 110 = +232 each — shown instantly.</em></p>
 
   <hr class="section-divider" />
 
-  <h2>Feature 2 — Order Workflow Redesign</h2>
-  <p class="hero-label" style="margin:0 0 16px; font-size:10px;">Pillar: 🤝 Collaboration on orders</p>
-
-  <h3>Problem</h3>
-  <p>The order creation flow was rigid. Average creation time: <strong>48 minutes</strong> for some users. Pickup date was required even when the LSP handled transport, status labels didn't match operational reality, and notice periods couldn't be configured per contract.</p>
-
-  <h3>Solution — 3 core principles</h3>
-  <div class="pill-row">
-    <span class="pill"><strong>Permissive</strong> — remove blockers</span>
-    <span class="pill"><strong>Omniscient</strong> — flag everything unusual</span>
-    <span class="pill"><strong>Modular</strong> — adapt per contract</span>
-  </div>
-  <div class="feature-block">
-    <ul>
-      <li>Date logic split: when LSP handles transport → only delivery date required</li>
-      <li>Order status labels rewritten to match real operational states</li>
-      <li>Flexible notice period configuration per contract</li>
-      <li>Inline reference creation during order flow</li>
-      <li>Comments visible at every stage for both shipper and LSP</li>
-    </ul>
-  </div>
-
-  <div class="carousel" id="c-orders">
-    <div class="carousel-track">
-      <div class="carousel-slide"><img src="images/spacefill-orders-list.jpg" alt="Orders list" /><div class="carousel-caption">Orders list — status, type, late orders and open incidents</div></div>
-      <div class="carousel-slide"><img src="images/spacefill-order-exit.jpeg" alt="New exit order" /><div class="carousel-caption">New exit — carrier, pickup, delivery, date and references</div></div>
-      <div class="carousel-slide"><img src="images/spacefill-order-view.jpeg" alt="Order view" /><div class="carousel-caption">Order view — references, batches and completion rate</div></div>
-      <div class="carousel-slide"><img src="images/spacefill-order-view-activity.jpeg" alt="Order activity" /><div class="carousel-caption">Activity — conversation thread between shipper and LSP</div></div>
-    </div>
-    <div class="carousel-controls">
-      <button class="carousel-btn" onclick="prevSlide('c-orders')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <div class="carousel-dots" id="c-orders-dots"></div>
-      <button class="carousel-btn" onclick="nextSlide('c-orders')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2L10 7L5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-    </div>
-  </div>
-
   <hr class="section-divider" />
 
-  <h2>Feature 3 — Transportation Module</h2>
+  <h2>Feature 3 — Incidents & Communication</h2>
   <p class="hero-label" style="margin:0 0 16px; font-size:10px;">Pillar: 🗼 Control Tower</p>
 
   <h3>Problem</h3>
-  <p>Shippers didn't see Spacefill as a transport tool — only a warehouse tool. No carrier management, no cross-warehouse movements. Multi-warehouse accounts were being lost.</p>
+  <p>Incidents happened constantly — wrong quantities, missing references, late deliveries, schedule changes during notice periods. But none of it was tracked inside the platform. Information scattered across emails, phone calls, and ERPs with no shared written trace, no accountability, and no way to spot patterns. <strong>CSM teams spent a disproportionate amount of time resolving errors between shippers and LSPs</strong> instead of doing higher-value work.</p>
+  <p>The incident module was also the <strong>most requested feature during sales calls</strong> — prospects named it as a condition for switching from their existing tools. It was both a retention problem and a sales blocker.</p>
 
   <h3>Solution</h3>
   <div class="feature-block">
-    <h3>Carrier Book</h3>
+    <h3>Incident reporting</h3>
     <ul>
-      <li>Settings section where shippers add their regular carriers</li>
-      <li>Carrier specified at order creation</li>
-      <li>Foundation for future: pricing grids, contracts, schedules</li>
+      <li>Report any incident type directly on an order — missing references, incorrect quantities, delivery delays, notice period violations</li>
+      <li>Categorised incident types for consistent tracking across accounts</li>
+      <li>Linked to the relevant order for full context</li>
     </ul>
   </div>
   <div class="feature-block">
-    <h3>Stock Transfer</h3>
+    <h3>In-platform communication</h3>
     <ul>
-      <li>New order type: 1 exit + 1 entry linked via shared <code>meta_order_id</code></li>
-      <li>Any action (cancel, update, reschedule) syncs both orders automatically</li>
-      <li>LSPs see individual warehouse orders unchanged</li>
+      <li>Notify all order stakeholders instantly — no more email chains or phone calls with no trace</li>
+      <li>Message thread + document sharing per incident, keeping all evidence in one place</li>
+      <li>Shared visibility between shipper and LSP — no more "I didn't know"</li>
     </ul>
   </div>
+
+  <div class="carousel" id="c-incidents">
+    <div class="carousel-track">
+      <div class="carousel-slide"><img src="images/spacefill-orders-general-end.jpg" alt="Orders list with incident status" /><div class="carousel-caption">Orders list — late orders and ongoing incidents surfaced at a glance</div></div>
+      <div class="carousel-slide"><img src="images/spacefill-order-incident-creation.jpg" alt="Report an incident modal" /><div class="carousel-caption">Report an incident — type, status, comment and document upload in one step</div></div>
+      <div class="carousel-slide"><img src="images/spacefill-order-incident.jpg" alt="Incident thread on order" /><div class="carousel-caption">Incident thread — shared conversation and documents between shipper and LSP</div></div>
+    </div>
+    <div class="carousel-controls">
+      <button class="carousel-btn" onclick="prevSlide('c-incidents')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="carousel-dots" id="c-incidents-dots"></div>
+      <button class="carousel-btn" onclick="nextSlide('c-incidents')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2L10 7L5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </div>
+
+  <h3>Expected impact</h3>
+  <p>Centralising incident communication inside the platform frees CSM teams from acting as message relays — giving them time back for higher-value customer work. Shippers and LSPs share a single written record, reducing disputes and making accountability visible on both sides.</p>
+  <ul style="margin-top:12px; padding-left:20px; line-height:2;">
+    <li>Recurring incident types surfaced by frequency — patterns become visible instead of buried in email threads</li>
+    <li>Monthly trend analysis drives continuous improvement on service quality and operational reliability</li>
+  </ul>
 
   <hr class="section-divider" />
 
   <h2>Process</h2>
   <div class="process-steps">
-    <div class="process-step"><div class="step-num">01</div><div class="step-content"><strong>Discovery</strong><span>Sales calls, user interviews, CSM feedback synthesis</span></div></div>
-    <div class="process-step"><div class="step-num">02</div><div class="step-content"><strong>Framing</strong><span>How Might We statements, problem prioritization with PMs</span></div></div>
-    <div class="process-step"><div class="step-num">03</div><div class="step-content"><strong>Exploration</strong><span>Competitive benchmarking — Shipbob, FBA, Deposco</span></div></div>
+    <div class="process-step"><div class="step-num">01</div><div class="step-content"><strong>Discovery</strong><span>Sales calls, user interviews, CSM feedback synthesis, visit shippers and warehouses</span></div></div>
+    <div class="process-step"><div class="step-num">02</div><div class="step-content"><strong>Framing</strong><span>How Might We statements, problem prioritization with PMs according to business and feedback</span></div></div>
+    <div class="process-step"><div class="step-num">03</div><div class="step-content"><strong>Exploration</strong><span>Ecosystem & competitive benchmarking — Odoo, Ramp, Transporeon</span></div></div>
     <div class="process-step"><div class="step-num">04</div><div class="step-content"><strong>Design</strong><span>Wireframes → high-fidelity in Figma, migrated to new design system</span></div></div>
     <div class="process-step"><div class="step-num">05</div><div class="step-content"><strong>Validation</strong><span>Moderated user tests with POC clients, iterative refinement</span></div></div>
     <div class="process-step"><div class="step-num">06</div><div class="step-content"><strong>Handoff</strong><span>Annotated Figma specs, dev collaboration in sprints</span></div></div>
@@ -325,7 +348,7 @@
   <div class="takeaway"><strong>Being the only designer means being strategic.</strong><p>I couldn't design everything — the 3-pillar framework kept prioritization aligned even when requests came from every direction.</p></div>
   <div class="takeaway"><strong>Data quality is a UX problem.</strong><p>The inventory issues weren't just visual — they stemmed from missing data. Fixing the collection layer before redesigning the display was the key insight.</p></div>
   <div class="takeaway"><strong>Logistics is a trust product.</strong><p>Every confusing label or missing confirmation creates real operational cost. Design precision matters more here than anywhere.</p></div>
-  <div class="takeaway"><strong>Sales calls beat user interviews.</strong><p>The best insights came from sitting in on sales calls and reading CSM notes — not formal interviews. The gap between what users say and what they do was massive.</p></div>
+
 
   <div class="nav-case">
     <span></span>
