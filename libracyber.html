@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LibraCyber — Momoko Sakamoto</title>
+  <meta name="description" content="Case study: building a coherent cybersecurity product ecosystem across two consolidated companies — design system, MSP portal, and extension governance." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f0f0d; --ink-muted: #6b6b60; --ink-faint: #6b6b60;
+      --paper: #f7f6f2; --paper-warm: #eeecea; --accent: #c8451a;
+      --accent-light: #f5ede9; --border: #e2e0da;
+      --serif: 'Instrument Serif', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --max: 720px; --nav-h: 64px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--paper); color: var(--ink); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h); display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; background: rgba(247,246,242,0.88); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: var(--serif); font-size: 18px; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+    .nav-back { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-muted); text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--ink); }
+    .nav-back svg { transition: transform 0.2s; }
+    .nav-back:hover svg { transform: translateX(-3px); }
+
+    .hero {
+      max-width: var(--max); margin: 0 auto;
+      padding: calc(var(--nav-h) + 80px) 40px 64px;
+    }
+    .hero-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    .hero-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--ink-faint); }
+    .hero h1 { font-family: var(--serif); font-size: clamp(36px, 6vw, 64px); line-height: 1.05; letter-spacing: -0.02em; font-weight: 400; margin-bottom: 24px; }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero-desc { font-size: 16px; color: var(--ink-muted); line-height: 1.75; max-width: 560px; margin-bottom: 40px; }
+
+    .meta-row {
+      display: flex; flex-wrap: wrap; gap: 0;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      margin-bottom: 80px;
+    }
+    .meta-item { padding: 16px 24px 16px 0; margin-right: 24px; border-right: 1px solid var(--border); }
+    .meta-item:last-child { border-right: none; }
+    .meta-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 4px; }
+    .meta-value { font-size: 13px; color: var(--ink); font-weight: 500; }
+
+    .content { max-width: var(--max); margin: 0 auto; padding: 0 40px 120px; }
+
+    h2 { font-family: var(--serif); font-size: clamp(24px, 3vw, 34px); font-weight: 400; letter-spacing: -0.015em; line-height: 1.15; margin: 64px 0 20px; color: var(--ink); }
+    h2:first-child { margin-top: 0; }
+    h3 { font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); margin: 40px 0 12px; }
+    p { font-size: 15px; color: var(--ink-muted); line-height: 1.85; margin-bottom: 16px; }
+    p strong { color: var(--ink); font-weight: 500; }
+
+    blockquote {
+      border-left: 2px solid var(--accent); margin: 32px 0;
+      padding: 4px 0 4px 20px;
+    }
+    blockquote p { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--ink); margin: 0 0 6px; }
+    blockquote cite { font-size: 12px; color: var(--ink-faint); letter-spacing: 0.06em; text-transform: uppercase; }
+
+    .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 32px; }
+    .pill { font-size: 12px; color: var(--ink-muted); background: var(--paper-warm); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; }
+    .pill.accent { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
+
+    .feature-block {
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 28px 32px; margin: 24px 0;
+      background: var(--paper-warm);
+    }
+    .feature-block h3 { margin-top: 0; }
+    .feature-block ul { padding-left: 16px; margin-top: 8px; }
+    .feature-block li { font-size: 14px; color: var(--ink-muted); line-height: 1.7; margin-bottom: 4px; }
+    .feature-block li strong { color: var(--ink); }
+
+    .impact-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin: 32px 0; }
+    .impact-item { background: var(--paper); padding: 24px 20px; }
+    .impact-num { font-family: var(--serif); font-style: italic; font-size: 32px; color: var(--accent); line-height: 1; margin-bottom: 6px; }
+    .impact-label { font-size: 12px; color: var(--ink-muted); line-height: 1.4; }
+
+    .section-divider { border: none; border-top: 1px solid var(--border); margin: 64px 0; }
+
+    .process-steps { counter-reset: step; margin: 24px 0; }
+    .process-step { display: flex; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+    .process-step:first-child { border-top: 1px solid var(--border); }
+    .step-num { font-family: var(--serif); font-style: italic; font-size: 13px; color: var(--ink-faint); width: 24px; flex-shrink: 0; padding-top: 2px; }
+    .step-content strong { font-size: 14px; font-weight: 500; color: var(--ink); display: block; margin-bottom: 2px; }
+    .step-content span { font-size: 13px; color: var(--ink-muted); }
+
+    .takeaway { padding: 20px 0; border-bottom: 1px solid var(--border); }
+    .takeaway:first-child { border-top: 1px solid var(--border); }
+    .takeaway strong { font-size: 14px; font-weight: 500; color: var(--ink); display: block; margin-bottom: 4px; }
+    .takeaway p { font-size: 13px; color: var(--ink-muted); margin: 0; line-height: 1.6; }
+
+    .nav-case { display: flex; justify-content: space-between; align-items: center; margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--border); }
+    .nav-case a { display: flex; align-items: center; gap: 10px; text-decoration: none; font-size: 13px; color: var(--ink-muted); letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-case a:hover { color: var(--ink); }
+    .nav-case .next { text-align: right; }
+
+
+    /* Carousel */
+    .carousel { position: relative; margin: 32px 0; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); background: var(--paper-warm); }
+    .carousel-track { display: flex; transition: transform 0.4s ease; }
+    .carousel-slide { min-width: 100%; }
+    .carousel-slide img { width: 100%; display: block; }
+    .carousel-caption { font-size: 11px; color: var(--ink-faint); letter-spacing: 0.06em; text-transform: uppercase; padding: 10px 16px; text-align: center; border-top: 1px solid var(--border); background: var(--paper); }
+    .carousel-controls { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 12px; background: var(--paper); border-top: 1px solid var(--border); }
+    .carousel-btn { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border); background: var(--paper); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--ink-muted); transition: all 0.2s; }
+    .carousel-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+    .carousel-dots { display: flex; gap: 6px; }
+    .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); cursor: pointer; transition: background 0.2s; }
+    .carousel-dot.active { background: var(--ink); }
+    /* Image pair */
+    .img-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 32px 0; }
+    .img-pair-item { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+    .img-pair-item img { width: 100%; display: block; }
+    .img-pair-caption { font-size: 11px; color: var(--ink-faint); letter-spacing: 0.06em; text-transform: uppercase; padding: 8px 12px; text-align: center; background: var(--paper); border-top: 1px solid var(--border); }
+    /* Single image */
+    .case-img { margin: 32px 0; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+    .case-img img { width: 100%; display: block; }
+    .case-img-caption { font-size: 11px; color: var(--ink-faint); letter-spacing: 0.06em; text-transform: uppercase; padding: 10px; text-align: center; background: var(--paper); border-top: 1px solid var(--border); }
+    @media (max-width: 700px) {
+      nav { padding: 0 20px; }
+      .hero, .content { padding-left: 20px; padding-right: 20px; }
+      .meta-row { gap: 0; }
+      .meta-item { padding: 12px 16px 12px 0; margin-right: 16px; }
+      .impact-row { grid-template-columns: 1fr; }
+    }
+
+    /* ===== LibraCyber page additions (same tokens, same type, same spacing) ===== */
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+    .skip-link { position: absolute; left: 16px; top: -80px; z-index: 300; padding: 10px 16px; background: var(--ink); color: var(--paper); border-radius: 4px; font-size: 14px; text-decoration: none; }
+    .skip-link:focus { top: 12px; }
+    .lead { font-family: var(--serif); font-size: clamp(24px, 3.4vw, 32px); line-height: 1.25; letter-spacing: -0.01em; color: var(--ink); max-width: 22em; margin-bottom: 20px; }
+    .ws-label { margin-top: 0; }
+    section { scroll-margin-top: calc(var(--nav-h) + 16px); }
+    .section-divider { margin: 88px 0; }
+
+    /* Index of the workstreams */
+    .index { list-style: none; margin: 32px 0 8px; }
+    .index a { display: grid; grid-template-columns: 40px 1fr 24px; gap: 16px; align-items: baseline; padding: 22px 0; border-bottom: 1px solid var(--border); text-decoration: none; color: inherit; }
+    .index li:first-child a { border-top: 1px solid var(--border); }
+    .index .n { font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--ink-faint); }
+    .index strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 26px; line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 4px; transition: color .2s; }
+    .index .tag { display: block; font-size: 15px; color: var(--ink); margin-bottom: 2px; }
+    .index .d { display: block; font-size: 14px; color: var(--ink-muted); line-height: 1.6; }
+    .index .go { color: var(--ink-muted); transition: transform .2s, color .2s; }
+    .index a:hover strong { color: var(--accent); }
+    .index a:hover .go { transform: translateX(4px); color: var(--accent); }
+
+    /* Simple ruled lists and two-column journeys (no boxed cards) */
+    .list { list-style: none; border-top: 1px solid var(--border); margin: 16px 0 24px; }
+    .list li { padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 15px; color: var(--ink-muted); line-height: 1.6; }
+    .list li strong { color: var(--ink); font-weight: 500; }
+    .list.two { display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; }
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 24px 0 32px; }
+    .cols h3 { margin-top: 0; }
+    .cols ol { padding-left: 20px; }
+    .cols li { font-size: 15px; color: var(--ink-muted); line-height: 1.7; margin-bottom: 6px; padding-left: 4px; }
+    .defs { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 20px 0 32px; border-top: 1px solid var(--border); padding-top: 20px; }
+    .defs dt { font-family: var(--serif); font-size: 22px; line-height: 1.2; margin-bottom: 6px; }
+    .defs dd { font-size: 15px; color: var(--ink-muted); line-height: 1.65; }
+    .objectives { margin-top: 8px; }
+
+    /* Image placeholders: replaced automatically when the real file exists in /images */
+    .case-img.wide, .img-pair.wide { margin: 32px 0; width: 100%; }
+    .ph { aspect-ratio: 16 / 9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 24px; text-align: center; background-color: var(--paper-warm); background-image: repeating-linear-gradient(45deg, transparent 0 14px, rgba(15,15,13,.04) 14px 15px); color: var(--ink-muted); }
+    .img-pair .ph { aspect-ratio: 4 / 3; }
+    .ph-id { font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); }
+    .ph-label { font-family: var(--serif); font-size: 22px; line-height: 1.2; color: var(--ink); }
+    .ph-file { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; word-break: break-all; }
+    .img-pair-caption { text-align: left; }
+    .case-img-caption { text-align: left; }
+
+    /* Carousel (same look as the other case studies) */
+    .carousel { position: relative; margin: 32px 0; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); background: var(--paper-warm); }
+    .carousel-track { display: flex; transition: transform 0.4s ease; }
+    .carousel-slide { min-width: 100%; }
+    .carousel-slide img { width: 100%; display: block; }
+    .carousel-caption { font-size: 11px; color: var(--ink-muted); letter-spacing: 0.06em; text-transform: uppercase; padding: 10px 16px; text-align: center; background: var(--paper); }
+    .carousel-controls { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 12px; background: var(--paper); border-top: 1px solid var(--border); }
+    .carousel-btn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); background: var(--paper); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--ink-muted); transition: all 0.2s; }
+    .carousel-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+    .carousel-dots { display: flex; gap: 2px; }
+    .carousel-dot { width: 24px; height: 24px; border: none; background: none; cursor: pointer; position: relative; padding: 0; }
+    .carousel-dot::after { content: ''; position: absolute; top: 9px; left: 9px; width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: background .2s; }
+    .carousel-dot.active { background: none; }
+    .carousel-dot.active::after { background: var(--ink); }
+    @media (prefers-reduced-motion: reduce) { .carousel-track { transition: none; } }
+    @media (max-width: 700px) {
+      .cols, .defs, .list.two, .img-pair { grid-template-columns: 1fr; }
+      .cols { gap: 28px; }
+      .index a { grid-template-columns: 28px 1fr 20px; gap: 12px; }
+      .case-img.wide, .img-pair.wide { width: 100%; margin: 32px 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+
+  </style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<nav aria-label="Primary">
+  <a href="index.html" class="nav-logo">Momoko Sakamoto</a>
+  <a href="index.html" class="nav-back">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+      <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    All work
+  </a>
+</nav>
+
+<main id="main">
+
+<header class="hero">
+  <p class="hero-label">Case study — 01</p>
+  <h1>Multiple products.<br><em>One shared design direction.</em></h1>
+  <p class="hero-desc">Following the consolidation of Mantra (France) and CyberGuru (Italy), I worked with both teams to adapt the new LibraCyber product to their different users and teams — from shared design foundations to complex administrative workflows.</p>
+  <dl class="meta-row">
+    <div class="meta-item"><dt class="meta-label">Company</dt><dd class="meta-value">LibraCyber</dd></div>
+    <div class="meta-item"><dt class="meta-label">Role</dt><dd class="meta-value">Solo Product Designer</dd></div>
+    <div class="meta-item"><dt class="meta-label">Period</dt><dd class="meta-value">2025 – 2026</dd></div>
+    <div class="meta-item"><dt class="meta-label">Type</dt><dd class="meta-value">B2B SaaS · Cybersecurity</dd></div>
+  </dl>
+</header>
+
+<div class="content">
+
+  <figure class="case-img wide"><img src="images/libracyber-01-product-overview.jpg" alt="Diagram: LibraCyber, built from Mantra and CyberGuru, organised in four product areas — Preventive Awareness, Real-time Protection, Email Protection, Archiving and Compliance" loading="lazy" /><figcaption class="case-img-caption">The LibraCyber product ecosystem</figcaption></figure>
+
+  <section aria-labelledby="challenge">
+    <h2 id="challenge">From fragmented products to a coherent ecosystem.</h2>
+    <p>LibraCyber set out to build a coherent European cybersecurity ecosystem. Two companies were being consolidated into a single product ecosystem: Mantra, from France, and CyberGuru, from Italy. Some features were meant to be merged, others redesigned, others removed.</p>
+    <blockquote>
+      <p>Two applications, two histories. The challenge was to make them feel like one: building on what already existed, without copy-pasting it, and without stacking every feature of both apps into a single product.</p>
+    </blockquote>
+    <p>The ecosystem inherited different visual identities, interaction patterns and technical implementations. Existing Mantra and CyberGuru customers also needed to be migrated to the new LibraCyber platform.</p>
+
+    <h3>Three challenges</h3>
+    <div class="process-steps">
+    <div class="process-step"><div class="step-num">01</div><div class="step-content"><strong>Fragmented foundations</strong><span>Different design languages, duplicated components and inconsistent interactions across products.</span></div></div>
+    <div class="process-step"><div class="step-num">02</div><div class="step-content"><strong>Complex operations</strong><span>MSPs and IT administrators needed better ways to manage customers, cybersecurity services and employee security activities.</span></div></div>
+    <div class="process-step"><div class="step-num">03</div><div class="step-content"><strong>Actionable security</strong><span>Users needed to move beyond passive monitoring and gain better visibility and control over their security environment.</span></div></div>
+    </div>
+
+    <div class="carousel" id="c-challenge" role="region" aria-roledescription="carousel" aria-label="Existing interfaces and audit findings"><div class="carousel-track" aria-live="polite"><div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="1 of 4"><img src="images/libracyber-02-1-legacy-interfaces.jpg" alt="Screens of the existing Mantra interface: course lists, extension governance, SaaS governance, dangerous browsing and user progression dashboards" loading="lazy" /><div class="carousel-caption">Before — the existing Mantra interfaces</div></div><div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="2 of 4"><img src="images/libracyber-02-2-inconsistent-components.jpg" alt="Examples of inconsistent status chips, filter components and tab components across the existing screens" loading="lazy" /><div class="carousel-caption">Audit — inconsistent chips, filters and tabs</div></div><div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="3 of 4"><img src="images/libracyber-02-3-audit-inconsistency-guidance.jpg" alt="Annotated Password Alerts screen with findings on action buttons far from their data, sorting experience and unclear red row status" loading="lazy" /><div class="carousel-caption">Audit — inconsistency, affordance and guidance</div></div><div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="4 of 4"><img src="images/libracyber-02-4-audit-system-status-efficiency.jpg" alt="Annotated Password Reuse screen with findings on filter efficiency and landing on an empty detail view" loading="lazy" /><div class="carousel-caption">Audit — system status and efficiency</div></div></div><div class="carousel-controls"><button type="button" class="carousel-btn" data-dir="-1" aria-label="Previous slide"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="carousel-dots"></div><button type="button" class="carousel-btn" data-dir="1" aria-label="Next slide"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M5 2L10 7L5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <section aria-labelledby="approach">
+    <h2 id="approach">Three complementary dimensions of product design.</h2>
+    <p>One connected design mission, from the foundations of the ecosystem to the product experiences built on top of them.</p>
+    <ol class="index">
+      <li><a href="#ws-design-system"><span class="n">01</span><span><strong>Design System</strong><span class="tag">Building shared foundations across products.</span><span class="d">A shared design system created from scratch: foundations, design tokens, reusable components, accessibility specifications and patterns.</span></span><svg class="go" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+      <li><a href="#ws-msp-portal"><span class="n">02</span><span><strong>MSP Portal</strong><span class="tag">Empowering MSPs through self-service.</span><span class="d">The MSP Portal redesigned so Managed Service Providers can manage customers, onboard organisations and provision services more independently.</span></span><svg class="go" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+      <li><a href="#ws-extension-governance"><span class="n">03</span><span><strong>Extension Governance</strong><span class="tag">Turning security monitoring into actionable governance.</span><span class="d">The browser extension management experience, redesigned with clearer risk information, administrative controls and employee request workflows.</span></span><svg class="go" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+    </ol>
+
+  </section>
+
+  <hr class="section-divider" />
+
+  <section aria-labelledby="ws-design-system">
+    <p class="hero-label ws-label">01 — Foundations</p>
+    <h2 id="ws-design-system">Building shared design foundations across modules.</h2>
+    <p>Even components serving the same purpose — chips, filters, data tables — looked and behaved differently from one module to another. The goal was a shared foundation that could support multiple modules without sacrificing their individual requirements.</p>
+
+    <figure class="case-img wide"><img src="images/libracyber-03-design-system-overview.jpg" alt="Figma file of the LibraCyber design system with pages for layout, styles, iconography, accessibility and components, next to a map of product screens" loading="lazy" /><figcaption class="case-img-caption">The shared design system in Figma</figcaption></figure>
+
+    <h3>Approach</h3>
+    <div class="process-steps">
+    <div class="process-step"><div class="step-num">A</div><div class="step-content"><strong>Product audit</strong><span>Analysed existing interfaces to identify visual inconsistencies, duplicated components, different interaction patterns and accessibility shortcomings.</span></div></div>
+    <div class="process-step"><div class="step-num">B</div><div class="step-content"><strong>Shared architecture</strong><span>A shared Figma component library organised around foundations (layout, styles, iconography, accessibility), tokens, components, patterns (filters, dashboard cards) and documentation, with usage guidelines embedded in the component pages.</span></div></div>
+    <div class="process-step"><div class="step-num">C</div><div class="step-content"><strong>Components and accessibility</strong><span>Systematic variants and states, consistent naming conventions and reusable structures, built on MUI (Material UI) as the technical component foundation.</span></div></div>
+    <div class="process-step"><div class="step-num">D</div><div class="step-content"><strong>Reusable patterns</strong><span>Patterns for recurring interface needs, particularly filters and dashboard cards.</span></div></div>
+    </div>
+
+    <h3>A token decision, made with engineering</h3>
+    <p>I first explored a three-level token architecture. After discussing it with engineers, I realised that maintaining that level of complexity would require resources the team couldn't allocate. I simplified it to two levels, and validated the approach with engineering before rolling it out.</p>
+    <dl class="defs">
+      <div><dt>Primitive tokens</dt><dd>Raw values such as colours, spacing and typography.</dd></div>
+      <div><dt>Semantic tokens</dt><dd>Meaningful references such as text-primary, background-default and border-subtle.</dd></div>
+    </dl>
+
+    <figure class="case-img wide"><img src="images/libracyber-04-token-architecture.jpg" alt="Two-level token architecture: primitive colour scales (sage, sky, lime, orange, red, emerald) and semantic tokens (primary, secondary, accent)" loading="lazy" /><figcaption class="case-img-caption">Primitive and semantic tokens</figcaption></figure>
+
+    <h3>Accessibility</h3>
+    <p>The system took into account WCAG contrast requirements, accessible component states and typography readability. Accessibility guidelines were documented in Figma, using MUI’s accessibility as a base.</p>
+
+    <figure class="case-img wide"><img src="images/libracyber-05-component-library.jpg" alt="Component library examples: tags, status badges, progress bar, slots, select inputs, a risk overview donut and a timeline" loading="lazy" /><figcaption class="case-img-caption">The component library</figcaption></figure>
+
+    <h3>Implementation constraints</h3>
+    <p>The full visual implementation was postponed because the team lacked frontend design resources. Rather than block feature development, improvements continued using the design system's interaction principles and behaviours while keeping the existing visual UI when necessary.</p>
+
+    <h3>Key decisions</h3>
+    <ul class="list"><li><strong>Two token levels, not three.</strong> After discussing it with engineers, I dropped a complexity the team couldn’t maintain.</li><li><strong>MUI as the base.</strong> I started from its components and accessibility rules instead of building from zero.</li><li><strong>Interaction principles first.</strong> The visual rollout was postponed for lack of frontend resources, so principles moved ahead on the existing UI without blocking features.</li></ul>
+
+    <div class="takeaway"><strong>Key takeaway</strong><p>A design system needs to balance consistency, flexibility and maintainability with the resources the organisation actually has.</p></div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <section aria-labelledby="ws-msp-portal">
+    <p class="hero-label ws-label">02 — Operations</p>
+    <h2 id="ws-msp-portal">Empowering MSPs to manage customers independently.</h2>
+    <p>Managed Service Providers (MSPs) manage several customer organisations and provision cybersecurity services for them.</p>
+    <p>In Mantra, some operational tasks still depended on the internal team, a potential bottleneck as MSPs onboarded more customers.</p>
+    <p>CyberGuru customers already had an MSP Portal. Despite its flaws, it was still working, and migrating it was a must-have to bring every customer onto the new LibraCyber app.</p>
+    <blockquote>
+      <p>How might we empower MSPs to onboard and manage more customers independently, while ensuring continuity of their existing operations during the migration to LibraCyber?</p>
+    </blockquote>
+
+    <figure class="case-img wide"><img src="images/libracyber-06-msp-portal-overview.jpg" alt="Figma flow of the MSP Portal showing partner and maintainer views and the customer creation states" loading="lazy" /><figcaption class="case-img-caption">The redesigned MSP Portal flows</figcaption></figure>
+
+    <h3>Approach</h3>
+    <div class="process-steps">
+    <div class="process-step"><div class="step-num">A</div><div class="step-content"><strong>Understanding existing operations</strong><span>Before designing, I mapped the operational processes in Mantra: how customers were created and managed, how modules were activated, which steps needed the internal team, which tasks could be automated and which responsibilities could move to MSPs.</span></div></div>
+    <div class="process-step"><div class="step-num">B</div><div class="step-content"><strong>Redesigning the experience</strong><span>Starting from the legacy Mantra application, I redesigned the portal almost from scratch, rethinking information architecture, navigation and operational workflows.</span></div></div>
+    <div class="process-step"><div class="step-num">C</div><div class="step-content"><strong>Design system integration</strong><span>Integration of the new LibraCyber design system into the redesigned portal had started.</span></div></div>
+    <div class="process-step"><div class="step-num">D</div><div class="step-content"><strong>Collaboration</strong><span>Worked with Product Managers and Engineers to validate workflows, clarify requirements and discuss technical feasibility.</span></div></div>
+    </div>
+
+    <h3>Four main areas</h3>
+    <div class="process-steps">
+    <div class="process-step"><div class="step-num">01</div><div class="step-content"><strong>Multi-tenant management</strong><span>Manage multiple customer organisations from one central portal.</span></div></div>
+    <div class="process-step"><div class="step-num">02</div><div class="step-content"><strong>Customer onboarding</strong><span>Customer creation and onboarding workflows.</span></div></div>
+    <div class="process-step"><div class="step-num">03</div><div class="step-content"><strong>Module provisioning</strong><span>Manage and activate cybersecurity modules for each customer.</span></div></div>
+    <div class="process-step"><div class="step-num">04</div><div class="step-content"><strong>Subscriptions and licences</strong><span>Manage customer subscriptions and their associated licences.</span></div></div>
+    </div>
+
+    <div class="carousel" id="c-msp" role="region" aria-roledescription="carousel" aria-label="MSP Portal screens"><div class="carousel-track" aria-live="polite"><div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="1 of 3"><img src="images/libracyber-07-1-partner-setup-form.jpg" alt="Partner setup form with company, domains and admin contact sections" loading="lazy" /><div class="carousel-caption">Partner setup — company, domains and admin contact</div></div><div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="2 of 3"><img src="images/libracyber-07-2-customer-creation-progress.jpg" alt="Customer creation in progress with company creation completed, SSO configuration and first admin creation pending" loading="lazy" /><div class="carousel-caption">Customer creation — progress of each step</div></div><div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="3 of 3"><img src="images/libracyber-07-3-module-provisioning.jpg" alt="Customer products configuration in the maintainer view, with the Phishing Simulation module settings" loading="lazy" /><div class="carousel-caption">Module provisioning — per-module configuration (maintainer view)</div></div></div><div class="carousel-controls"><button type="button" class="carousel-btn" data-dir="-1" aria-label="Previous slide"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="carousel-dots"></div><button type="button" class="carousel-btn" data-dir="1" aria-label="Next slide"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M5 2L10 7L5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+
+    <h3>Key decisions</h3>
+    <ul class="list"><li><strong>Map before designing.</strong> I documented existing operations to see what depended on the internal team and what could move to MSPs.</li><li><strong>CyberGuru portal first.</strong> Migrating it was a condition for moving every customer to LibraCyber.</li><li><strong>No conflicting actions.</strong> While a product activation is in progress, its toggle is disabled so Partner and Maintainer can’t contradict each other.</li><li><strong>Clear failure states.</strong> When customer creation fails, the portal explains what happened and what to do next, so the process never feels blocked.</li></ul>
+
+    <h3>Objectives</h3>
+    <ul class="list"><li>Make it easier for MSPs to onboard and manage a growing customer base.</li><li>Reduce operational bottlenecks caused by dependency on the internal LibraCyber team.</li><li>Give MSPs greater autonomy.</li><li>Ensure continuity of an essential capability during the Mantra and CyberGuru migration.</li></ul>
+    <div class="takeaway"><strong>Key takeaway</strong><p>Designing an effective B2B platform means understanding the operational processes behind the interface, not just the screens users interact with.</p></div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <section aria-labelledby="ws-extension-governance">
+    <p class="hero-label ws-label">03 — Governance</p>
+    <h2 id="ws-extension-governance">From browser extension monitoring to active governance.</h2>
+    <p>The existing Extension Governance feature let administrators monitor browser extensions and spot potential security risks, but gave them little control over which extensions employees could install. Without comprehensive allow-list and deny-list management, there was a gap between identifying a risk and acting on it.</p>
+    <p>It was also one of the most commented-on features despite relatively low engagement.</p>
+    <blockquote>
+      <p>How might we transform a monitoring-oriented feature into an actionable security governance experience?</p>
+    </blockquote>
+
+    <div class="carousel" id="c-ext" role="region" aria-roledescription="carousel" aria-label="Extension Governance before and after"><div class="carousel-track" aria-live="polite"><div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="1 of 2"><img src="images/libracyber-08-extension-governance-before.jpg" alt="Previous Mantra extension governance screen with warning counts per extension" loading="lazy" /><div class="carousel-caption">Before — Mantra</div></div><div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="2 of 2"><img src="images/libracyber-09-extension-governance-after.jpg" alt="New LibraCyber extension governance screen with pending requests, risk levels and allow or deny actions" loading="lazy" /><div class="carousel-caption">After — LibraCyber</div></div></div><div class="carousel-controls"><button type="button" class="carousel-btn" data-dir="-1" aria-label="Previous slide"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="carousel-dots"></div><button type="button" class="carousel-btn" data-dir="1" aria-label="Next slide"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M5 2L10 7L5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+
+    <h3>Approach</h3>
+    <div class="process-steps">
+    <div class="process-step"><div class="step-num">A</div><div class="step-content"><strong>Making risk information actionable</strong><span>The previous interface relied heavily on warning scores. I reorganised the existing information into three clearer categories. The underlying risk-scoring methodology remained unchanged; the work focused on making the available information easier to understand.</span></div></div>
+    <div class="process-step"><div class="step-num">B</div><div class="step-content"><strong>Redesigning extension management</strong><span>Four dedicated views — pending requests, denied, allowed and all extensions — with clearer statuses and more direct administrative actions, including bulk selection and allow/deny controls.</span></div></div>
+    <div class="process-step"><div class="step-num">C</div><div class="step-content"><strong>Connecting employee and administrator workflows</strong><span>A Request &amp; Approve workflow, balancing organisational security requirements with employees’ operational needs.</span></div></div>
+    </div>
+    <dl class="defs">
+      <div><dt>Distribution</dt><dd>Update frequency, publisher verification and distribution information.</dd></div>
+      <div><dt>Permissions</dt><dd>Website data access and potentially intrusive permissions.</dd></div>
+      <div><dt>Reputation</dt><dd>Number of users, ratings and reviews.</dd></div>
+    </dl>
+
+    <figure class="case-img wide"><img src="images/libracyber-10-extension-management-details.jpg" alt="Extension detail showing risk by distribution, permission and reputation, and the list of users who installed it" loading="lazy" /><figcaption class="case-img-caption">Extension details and installations</figcaption></figure>
+
+    <h3>Request &amp; Approve workflow</h3>
+    <div class="cols">
+      <div><h3>Employee journey</h3><ol>
+        <li>Requests a browser extension.</li>
+        <li>Accesses a dedicated request page.</li>
+        <li>Provides a justification.</li>
+        <li>Receives an email confirming the request.</li>
+      </ol></div>
+      <div><h3>Administrator journey</h3><ol>
+        <li>Receives the request in Browser Defender.</li>
+        <li>Reviews the extension information and the employee's justification.</li>
+        <li>Decides whether to allow or block the extension.</li>
+      </ol></div>
+    </div>
+
+    <figure class="case-img wide"><img src="images/libracyber-11-request-approve-workflow.jpg" alt="Request and Approve workflow from the employee request page to the administrator review, decision and email notification" loading="lazy" /><figcaption class="case-img-caption">The Request &amp; Approve workflow</figcaption></figure>
+
+    <h3>Delivery</h3>
+    <p>I worked independently on the UX/UI design, gathering feedback from the PM and engineers to validate requirements and technical constraints. The first internal release was delivered before my engagement ended. Implementation was still ongoing when my mission concluded, with no reported complaints.</p>
+
+    <h3>Key decisions</h3>
+    <ul class="list"><li><strong>Scoring left untouched.</strong> I reorganised the same information into Distribution, Permissions and Reputation.</li><li><strong>From monitoring to action.</strong> Allow and deny controls, including in bulk, sit next to the risk information.</li><li><strong>Employee and administrator connected.</strong> The employee justifies a request, and the administrator sees it with its risks before deciding.</li></ul>
+
+    <h3>Outcome</h3>
+    <p>The redesign addressed a fundamental limitation: administrators could identify potential risks but had few ways to act on them. It shifted the proposition towards active extension management and gave the sales team a stronger feature to demonstrate to prospective customers. No customer adoption or commercial impact has been measured.</p>
+    <div class="takeaway"><strong>Key takeaway</strong><p>Turning security information into decisions takes more than presenting risks. It takes designing the workflows and controls that let people respond to them.</p></div>
+  </section>
+
+
+  <hr class="section-divider" />
+
+  <section aria-labelledby="reflection">
+    <h2 id="reflection">Building consistency without sacrificing flexibility.</h2>
+    <p>Working across LibraCyber let me approach product design from several perspectives: the foundations of the ecosystem, the operational tools used by MSPs, and the security workflows experienced by employees and administrators.</p>
+    <blockquote>
+      <p>A coherent product ecosystem doesn't mean making every product identical. It means creating shared foundations, consistent behaviours and understandable experiences, while respecting the needs of different users and operational contexts.</p>
+    </blockquote>
+    <h3>Three dimensions of one design mission</h3>
+    <ol class="index">
+      <li><a href="#ws-design-system"><span class="n">01</span><span><strong>Foundations</strong><span class="tag">Design System</span><span class="d"></span></span><svg class="go" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+      <li><a href="#ws-msp-portal"><span class="n">02</span><span><strong>Operations</strong><span class="tag">MSP Portal</span><span class="d"></span></span><svg class="go" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+      <li><a href="#ws-extension-governance"><span class="n">03</span><span><strong>Governance</strong><span class="tag">Extension Governance</span><span class="d"></span></span><svg class="go" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+    </ol>
+
+  </section>
+
+  <div class="nav-case">
+    <a href="index.html" class="prev">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      All work
+    </a>
+    <span></span>
+  </div>
+
+</div>
+</main>
+
+<script>
+  (function () {
+    document.querySelectorAll('.carousel').forEach(function (el) {
+      var track = el.querySelector('.carousel-track');
+      var slides = el.querySelectorAll('.carousel-slide');
+      var dotsEl = el.querySelector('.carousel-dots');
+      var cur = 0, n = slides.length;
+      var dots = [];
+      slides.forEach(function (_, i) {
+        var d = document.createElement('button');
+        d.type = 'button'; d.className = 'carousel-dot'; d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        d.onclick = function () { go(i); };
+        dotsEl.appendChild(d); dots.push(d);
+      });
+      function go(i) {
+        cur = (i + n) % n;
+        track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+        dots.forEach(function (d, k) { d.classList.toggle('active', k === cur); if (k === cur) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current'); });
+        slides.forEach(function (s, k) { if (k === cur) s.removeAttribute('inert'); else s.setAttribute('inert', ''); });
+      }
+      el.querySelectorAll('.carousel-btn').forEach(function (b) {
+        b.onclick = function () { go(cur + parseInt(b.getAttribute('data-dir'), 10)); };
+      });
+      el.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') go(cur + 1);
+        if (e.key === 'ArrowLeft') go(cur - 1);
+      });
+      go(0);
+    });
+  })();
+</script>
+
+</body>
+</html>
