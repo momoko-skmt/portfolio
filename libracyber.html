@@ -166,7 +166,7 @@
     .cols h3 { margin-top: 0; }
     .cols ol { padding-left: 20px; }
     .cols li { font-size: 15px; color: var(--ink-muted); line-height: 1.7; margin-bottom: 6px; padding-left: 4px; }
-    .defs { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 20px 0 32px; border-top: 1px solid var(--border); padding-top: 20px; }
+    .defs { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 20px 0 32px; padding-top: 20px; }
     .defs dt { font-family: var(--serif); font-size: 22px; line-height: 1.2; margin-bottom: 6px; }
     .defs dd { font-size: 15px; color: var(--ink-muted); line-height: 1.65; }
     .objectives { margin-top: 8px; }
@@ -283,10 +283,10 @@
 
     <h3>Approach</h3>
     <div class="process-steps">
-    <div class="process-step"><div class="step-num">A</div><div class="step-content"><strong>Product audit</strong><span>Analysed existing interfaces to identify visual inconsistencies, duplicated components, different interaction patterns and accessibility shortcomings.</span></div></div>
-    <div class="process-step"><div class="step-num">B</div><div class="step-content"><strong>Shared architecture</strong><span>A shared Figma component library organised around foundations (layout, styles, iconography, accessibility), tokens, components, patterns (filters, dashboard cards) and documentation, with usage guidelines embedded in the component pages.</span></div></div>
-    <div class="process-step"><div class="step-num">C</div><div class="step-content"><strong>Components and accessibility</strong><span>Systematic variants and states, consistent naming conventions and reusable structures, built on MUI (Material UI) as the technical component foundation.</span></div></div>
-    <div class="process-step"><div class="step-num">D</div><div class="step-content"><strong>Reusable patterns</strong><span>Patterns for recurring interface needs, particularly filters and dashboard cards.</span></div></div>
+    <div class="process-step"><div class="step-num">1</div><div class="step-content"><strong>Product audit</strong><span>Analysed existing interfaces to identify visual inconsistencies, duplicated components, different interaction patterns and accessibility shortcomings.</span></div></div>
+    <div class="process-step"><div class="step-num">2</div><div class="step-content"><strong>Shared architecture</strong><span>A shared Figma component library organised around foundations (layout, styles, iconography, accessibility), tokens, components, patterns (filters, dashboard cards) and documentation, with usage guidelines embedded in the component pages.</span></div></div>
+    <div class="process-step"><div class="step-num">3</div><div class="step-content"><strong>Components and accessibility</strong><span>Systematic variants and states, consistent naming conventions and reusable structures, built on MUI (Material UI) as the technical component foundation. The system took into account WCAG contrast requirements, accessible component states and typography readability. Accessibility guidelines were documented in Figma, using MUI’s accessibility as a base.</span></div></div>
+    <div class="process-step"><div class="step-num">4</div><div class="step-content"><strong>Reusable patterns</strong><span>Patterns for recurring interface needs, particularly filters and dashboard cards.</span></div></div>
     </div>
 
     <h3>A token decision, made with engineering</h3>
@@ -298,16 +298,15 @@
 
     <figure class="case-img wide"><img src="images/libracyber-04-token-architecture.jpg" alt="Two-level token architecture: primitive colour scales (sage, sky, lime, orange, red, emerald) and semantic tokens (primary, secondary, accent)" loading="lazy" /><figcaption class="case-img-caption">Primitive and semantic tokens</figcaption></figure>
 
-    <h3>Accessibility</h3>
-    <p>The system took into account WCAG contrast requirements, accessible component states and typography readability. Accessibility guidelines were documented in Figma, using MUI’s accessibility as a base.</p>
-
     <figure class="case-img wide"><img src="images/libracyber-05-component-library.jpg" alt="Component library examples: tags, status badges, progress bar, slots, select inputs, a risk overview donut and a timeline" loading="lazy" /><figcaption class="case-img-caption">The component library</figcaption></figure>
 
-    <h3>Implementation constraints</h3>
-    <p>The full visual implementation was postponed because the team lacked frontend design resources. Rather than block feature development, improvements continued using the design system's interaction principles and behaviours while keeping the existing visual UI when necessary.</p>
 
     <h3>Key decisions</h3>
-    <ul class="list"><li><strong>Two token levels, not three.</strong> After discussing it with engineers, I dropped a complexity the team couldn’t maintain.</li><li><strong>MUI as the base.</strong> I started from its components and accessibility rules instead of building from zero.</li><li><strong>Interaction principles first.</strong> The visual rollout was postponed for lack of frontend resources, so principles moved ahead on the existing UI without blocking features.</li></ul>
+    <ul class="list">
+      <li><strong>Two token levels, not three.</strong> I dropped a complexity the team couldn’t maintain.</li>
+      <li><strong>MUI as the base.</strong> I started from its components and accessibility rules instead of building from zero.</li>
+      <li><strong>Principles first.</strong> The visual rollout was postponed for lack of frontend resources, so principles moved ahead on the existing UI without blocking features.</li>
+    </ul>
 
     <div class="takeaway"><strong>Key takeaway</strong><p>A design system needs to balance consistency, flexibility and maintainability with the resources the organisation actually has.</p></div>
   </section>
@@ -328,27 +327,30 @@
 
     <h3>Approach</h3>
     <div class="process-steps">
-    <div class="process-step"><div class="step-num">A</div><div class="step-content"><strong>Understanding existing operations</strong><span>Before designing, I mapped the operational processes in Mantra: how customers were created and managed, how modules were activated, which steps needed the internal team, which tasks could be automated and which responsibilities could move to MSPs.</span></div></div>
-    <div class="process-step"><div class="step-num">B</div><div class="step-content"><strong>Redesigning the experience</strong><span>Starting from the legacy Mantra application, I redesigned the portal almost from scratch, rethinking information architecture, navigation and operational workflows.</span></div></div>
-    <div class="process-step"><div class="step-num">C</div><div class="step-content"><strong>Design system integration</strong><span>Integration of the new LibraCyber design system into the redesigned portal had started.</span></div></div>
-    <div class="process-step"><div class="step-num">D</div><div class="step-content"><strong>Collaboration</strong><span>Worked with Product Managers and Engineers to validate workflows, clarify requirements and discuss technical feasibility.</span></div></div>
+    <div class="process-step"><div class="step-num">1</div><div class="step-content"><strong>Understanding existing operations</strong><span>Before designing, I mapped the operational processes in Mantra: how customers were created and managed, how modules were activated, which steps needed the internal team, which tasks could be automated and which responsibilities could move to MSPs.</span></div></div>
+    <div class="process-step"><div class="step-num">2</div><div class="step-content"><strong>Redesigning the experience</strong><span>Starting from the MSP Portal foundations, I designed the portal interface by rethinking information architecture, navigation and operational workflows.</span></div></div>
+    <div class="process-step"><div class="step-num">3</div><div class="step-content"><strong>Design system integration</strong><span>Integration of the new LibraCyber design system into the redesigned portal had started.</span></div></div>
+    <div class="process-step"><div class="step-num">4</div><div class="step-content"><strong>Collaboration</strong><span>Worked with PMs and Engineers to validate workflows, clarify requirements and discuss technical feasibility.</span></div></div>
     </div>
 
-    <h3>Four main areas</h3>
+    <p>The goal was to give MSPs greater autonomy to onboard and manage a growing customer base, reducing their dependency on LibraCyber’s internal team and ensuring continuity of this essential capability throughout the Mantra and CyberGuru migration.</p>
+
+    <h3>Three main areas</h3>
     <div class="process-steps">
-    <div class="process-step"><div class="step-num">01</div><div class="step-content"><strong>Multi-tenant management</strong><span>Manage multiple customer organisations from one central portal.</span></div></div>
-    <div class="process-step"><div class="step-num">02</div><div class="step-content"><strong>Customer onboarding</strong><span>Customer creation and onboarding workflows.</span></div></div>
-    <div class="process-step"><div class="step-num">03</div><div class="step-content"><strong>Module provisioning</strong><span>Manage and activate cybersecurity modules for each customer.</span></div></div>
-    <div class="process-step"><div class="step-num">04</div><div class="step-content"><strong>Subscriptions and licences</strong><span>Manage customer subscriptions and their associated licences.</span></div></div>
+    <div class="process-step"><div class="step-num">1</div><div class="step-content"><strong>Multi-tenant management</strong><span>Manage multiple customer organisations from one central portal.</span></div></div>
+    <div class="process-step"><div class="step-num">2</div><div class="step-content"><strong>Module provisioning</strong><span>Manage and activate cybersecurity modules for each customer.</span></div></div>
+    <div class="process-step"><div class="step-num">3</div><div class="step-content"><strong>Subscriptions and licences</strong><span>Manage customer subscriptions and their associated licences.</span></div></div>
     </div>
 
     <div class="carousel" id="c-msp" role="region" aria-roledescription="carousel" aria-label="MSP Portal screens"><div class="carousel-track" aria-live="polite"><div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="1 of 3"><img src="images/libracyber-07-1-partner-setup-form.jpg" alt="Partner setup form with company, domains and admin contact sections" loading="lazy" /><div class="carousel-caption">Partner setup — company, domains and admin contact</div></div><div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="2 of 3"><img src="images/libracyber-07-2-customer-creation-progress.jpg" alt="Customer creation in progress with company creation completed, SSO configuration and first admin creation pending" loading="lazy" /><div class="carousel-caption">Customer creation — progress of each step</div></div><div class="carousel-slide" role="group" aria-roledescription="slide" aria-label="3 of 3"><img src="images/libracyber-07-3-module-provisioning.jpg" alt="Customer products configuration in the maintainer view, with the Phishing Simulation module settings" loading="lazy" /><div class="carousel-caption">Module provisioning — per-module configuration (maintainer view)</div></div></div><div class="carousel-controls"><button type="button" class="carousel-btn" data-dir="-1" aria-label="Previous slide"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="carousel-dots"></div><button type="button" class="carousel-btn" data-dir="1" aria-label="Next slide"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M5 2L10 7L5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
 
     <h3>Key decisions</h3>
-    <ul class="list"><li><strong>Map before designing.</strong> I documented existing operations to see what depended on the internal team and what could move to MSPs.</li><li><strong>CyberGuru portal first.</strong> Migrating it was a condition for moving every customer to LibraCyber.</li><li><strong>No conflicting actions.</strong> While a product activation is in progress, its toggle is disabled so Partner and Maintainer can’t contradict each other.</li><li><strong>Clear failure states.</strong> When customer creation fails, the portal explains what happened and what to do next, so the process never feels blocked.</li></ul>
+    <ul class="list">
+      <li><strong>Map before designing.</strong> I documented existing operations to see what depended on the internal team and what could move to MSPs.</li>
+      <li><strong>No conflicting actions.</strong> While a product activation is in progress, its toggle is disabled so Partner and Maintainer can’t contradict each other.</li>
+      <li><strong>Clear failure states.</strong> When customer creation fails, the portal explains what happened and what to do next, so the process never feels blocked.</li>
+    </ul>
 
-    <h3>Objectives</h3>
-    <ul class="list"><li>Make it easier for MSPs to onboard and manage a growing customer base.</li><li>Reduce operational bottlenecks caused by dependency on the internal LibraCyber team.</li><li>Give MSPs greater autonomy.</li><li>Ensure continuity of an essential capability during the Mantra and CyberGuru migration.</li></ul>
     <div class="takeaway"><strong>Key takeaway</strong><p>Designing an effective B2B platform means understanding the operational processes behind the interface, not just the screens users interact with.</p></div>
   </section>
 
@@ -367,9 +369,9 @@
 
     <h3>Approach</h3>
     <div class="process-steps">
-    <div class="process-step"><div class="step-num">A</div><div class="step-content"><strong>Making risk information actionable</strong><span>The previous interface relied heavily on warning scores. I reorganised the existing information into three clearer categories. The underlying risk-scoring methodology remained unchanged; the work focused on making the available information easier to understand.</span></div></div>
-    <div class="process-step"><div class="step-num">B</div><div class="step-content"><strong>Redesigning extension management</strong><span>Four dedicated views — pending requests, denied, allowed and all extensions — with clearer statuses and more direct administrative actions, including bulk selection and allow/deny controls.</span></div></div>
-    <div class="process-step"><div class="step-num">C</div><div class="step-content"><strong>Connecting employee and administrator workflows</strong><span>A Request &amp; Approve workflow, balancing organisational security requirements with employees’ operational needs.</span></div></div>
+    <div class="process-step"><div class="step-num">1</div><div class="step-content"><strong>Making risk information actionable</strong><span>The previous interface relied heavily on warning scores. I reorganised the existing information into three clearer categories. The underlying risk-scoring methodology remained unchanged; the work focused on making the available information easier to understand.</span></div></div>
+    <div class="process-step"><div class="step-num">2</div><div class="step-content"><strong>Redesigning extension management</strong><span>Four dedicated views — pending requests, denied, allowed and all extensions — with clearer statuses and more direct actions, including bulk selection and allow/deny controls.</span></div></div>
+    <div class="process-step"><div class="step-num">3</div><div class="step-content"><strong>Connecting employee and administrator workflows</strong><span>A Request &amp; Approve workflow, balancing organisational security requirements with employees’ operational needs.</span></div></div>
     </div>
     <dl class="defs">
       <div><dt>Distribution</dt><dd>Update frequency, publisher verification and distribution information.</dd></div>
